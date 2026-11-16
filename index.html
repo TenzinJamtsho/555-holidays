@@ -224,7 +224,7 @@
     const first = items[0];
     return `<div class="mscroll" data-part="${p.key}"><article class="moment${i % 2 ? ' flip' : ''}">
       <div class="m-photo rv">
-        ${items.map((e, k) => `<img class="lay" src="${img(e.img)}" alt="${k === 0 ? esc(e.title) : ''}" loading="lazy"${k ? ' style="clip-path:polygon(0 140%,100% 100%,100% 100%,0 100%)"' : ''}>`).join('')}
+        ${items.map((e, k) => `<div class="lay"${k ? ' style="clip-path:polygon(0 140%,100% 100%,100% 100%,0 100%)"' : ''}><img src="${img(e.img)}" alt="${k === 0 ? esc(e.title) : ''}" loading="lazy" decoding="async"><i class="shade"></i></div>`).join('')}
         <span class="when">${p.icon}${p.when}</span>
         <span class="m-cap"><span>${esc(first.title)}</span></span>
         <span class="m-count" aria-hidden="true"><b>1</b> / ${items.length}</span>
@@ -246,6 +246,7 @@
   const blocks = [...document.querySelectorAll('.mscroll')].map(el => ({
     el, moment: el.querySelector('.moment'), items: S.experiences.filter(x => x.time === el.dataset.part),
     lays: [...el.querySelectorAll('.m-photo .lay')], cap: el.querySelector('.m-cap'), count: el.querySelector('.m-count b'),
+    shades: [...el.querySelectorAll('.m-photo .shade')], pics: [...el.querySelectorAll('.m-photo .lay img')], cur: 0, tgt: 0, visible: false,
     btns: [...el.querySelectorAll('.m-list button')], bars: [...el.querySelectorAll('.m-progress i')], idx: 0, step: 0, stick: 0
   }));
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -256,7 +257,7 @@
     const it = b.items[i];
     b.btns.forEach((x, k) => x.setAttribute('aria-current', k === i));
     b.bars.forEach((x, k) => x.classList.toggle('on', k <= i));
-    b.lays.forEach((l, k) => l.alt = k === i ? it.title : '');
+    b.pics.forEach((l, k) => l.alt = k === i ? it.title : '');
     b.count.textContent = i + 1;
     b.cap.innerHTML = `<span>${esc(it.title)}</span>`;
   }
@@ -265,16 +266,19 @@
     const n = b.lays.length;
     const pin = k => k === 0 ? 1 : (reduce ? (pos >= k - 0.5 ? 1 : 0) : clamp((pos - (k - 1) - 0.2) / 0.6));
     let active = 0;
-    b.lays.forEach((l, k) => {
-      const p = pin(k), out = k + 1 < n ? pin(k + 1) : 0;
+    for (let k = 0; k < n; k++) {
+      const p = pin(k), out = k + 1 < n ? pin(k + 1) : 0, l = b.lays[k];
       if (k > 0) {
         const yl = (1 - p) * 140, yr = yl - 40;   // diagonal edge, rising from bottom-right to top-left
-        l.style.clipPath = p >= 1 ? 'none' : `polygon(0 ${yl}%, 100% ${yr}%, 100% 100%, 0 100%)`;
+        const clip = p >= 1 ? 'none' : `polygon(0 ${yl.toFixed(2)}%, 100% ${yr.toFixed(2)}%, 100% 100%, 0 100%)`;
+        if (l._c !== clip) { l.style.clipPath = clip; l._c = clip; }
         if (p >= 0.5) active = k;
       }
-      l.style.transform = `scale(${((k ? 1.12 - 0.12 * p : 1) * (1 + 0.06 * out)).toFixed(4)})`;
-      l.style.filter = out > 0 ? `brightness(${(1 - 0.35 * out).toFixed(3)})` : '';
-    });
+      const sc = `scale(${((k ? 1.12 - 0.12 * p : 1) * (1 + 0.06 * out)).toFixed(4)})`;
+      if (l._t !== sc) { l.style.transform = sc; l._t = sc; }
+      const op = (0.38 * out).toFixed(3);
+      if (b.shades[k]._o !== op) { b.shades[k].style.opacity = op; b.shades[k]._o = op; }
+    }
     show(b, active);
   }
   function layout() {
@@ -289,13 +293,28 @@
     });
     onScroll();
   }
-  function onScroll() {
+  let ticking = false;
+  function measure() {
     if (!desktop.matches) return;
-    blocks.forEach(b => {
+    for (const b of blocks) {                       // reads only
       const r = b.el.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > innerHeight + 200) return;   // off screen: skip
-      paint(b, (b.stick - r.top) / b.step);
-    });
+      b.visible = r.bottom > -200 && r.top < innerHeight + 200;
+      b.tgt = (b.stick - r.top) / b.step;
+    }
+  }
+  function tick() {
+    let moving = false;
+    for (const b of blocks) {                       // writes only
+      if (!b.visible) { b.cur = b.tgt; continue; }
+      const d = b.tgt - b.cur;
+      if (reduce || Math.abs(d) < 0.002) b.cur = b.tgt; else { b.cur += d * 0.16; moving = true; }
+      paint(b, b.cur);
+    }
+    if (moving) requestAnimationFrame(tick); else ticking = false;
+  }
+  function onScroll() {
+    measure();
+    if (!ticking) { ticking = true; requestAnimationFrame(tick); }
   }
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', layout);
