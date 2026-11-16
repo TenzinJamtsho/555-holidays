@@ -444,7 +444,7 @@ a.ccard:hover{border-color:var(--blue)}
 @media (max-width:820px){
   .page{padding:8px 8px 0}
   .hero{border-radius:22px;height:calc(100svh - 16px);min-height:640px}
-  .hero .word{top:15%}
+  .hero .word{top:auto;bottom:61%}
   .hero-copy{grid-template-columns:1fr}
   .phero{border-radius:22px;height:auto;min-height:420px;padding-top:110px}
   .lead,.lead.with-link,.faq-home{grid-template-columns:1fr;gap:8px}
@@ -571,3 +571,6 @@ a.ccard:hover{border-color:var(--blue)}
   .numbers{grid-template-columns:1fr}
   .numbers div+div{border-left:0;border-top:1px solid var(--line)}
 }
+
+/* phones: keep the peaks overlapping the bottom of "Bhutan" on short screens too */
+@media (max-width:820px) and (max-height:720px){.hero .word{bottom:57%}}
