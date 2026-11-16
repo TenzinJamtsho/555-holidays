@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet your guide | 555 Holidays</title>
+<meta name="description" content="Meet one of the local guides who lead 555 Holidays journeys in Bhutan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="about">
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<!-- Guide bio template: guide.html?g=<slug>  (equivalent of /guides/[slug]) -->
+<header class="phero" style="height:clamp(300px,42vh,420px)">
+  <img src="images/why.jpg" alt="">
+  <div data-nav></div>
+  <div class="copy">
+    <div class="crumb"><a href="index.html">Home</a><span>/</span><a href="about.html#guides">Guides</a><span>/</span><span id="g-crumb"></span></div>
+    <h1 id="g-title"></h1>
+  </div>
+</header>
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <div class="gprofile">
+      <div class="gphoto rv" id="g-photo"></div>
+      <div class="rv">
+        <span class="chip blue" id="g-spec"></span>
+        <p class="h3" id="g-line" style="margin:18px 0 0;font-style:italic"></p>
+        <div class="gfacts" id="g-facts"></div>
+        <div class="prose" id="g-bio"></div>
+        <div class="cta-btns" id="g-cta" style="margin-top:24px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="label">Journeys they lead</span><h2 class="h2">Travel together</h2><a class="see" href="tours.html">All tours →</a></div>
+    <div class="tcards" id="g-tours"></div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead rv"><span class="label">The rest of the team</span><h2 class="h2">More of our guides</h2></div>
+    <div class="guides" id="g-more"></div>
+  </div>
+</section>
+</main>
+<footer data-footer></footer>
+</div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  const { S, R, ph, esc, isPh, param, I, waLink, reveal } = window.UI;
+  const g = S.guides.find(x => x.slug === param('g')) || S.guides[0];
+  const name = isPh(g.name) ? 'your guide' : g.name;
+  document.title = `${isPh(g.name) ? 'Meet your guide' : g.name}, ${g.speciality} | 555 Holidays`;
+  document.querySelector('meta[name=description]').content = `${isPh(g.name) ? 'A 555 Holidays guide' : g.name}: ${g.speciality} guide in Bhutan.`;
+  document.getElementById('g-crumb').innerHTML = ph(g.name);
+  document.getElementById('g-title').innerHTML = ph(g.name);
+  document.getElementById('g-photo').innerHTML = isPh(g.photo) ? I.person + ph(g.photo) : `<img src="${esc(g.photo)}" alt="Portrait of ${esc(g.name)}">`;
+  document.getElementById('g-spec').innerHTML = ph(g.speciality);
+  document.getElementById('g-line').innerHTML = `“${ph(g.line)}”`;
+  document.getElementById('g-facts').innerHTML = [['Guiding for', `${ph(g.years)} years`], ['Languages', ph(g.languages)], ['From', ph(g.from)]]
+    .map(([k, v]) => `<div class="fact"><small>${k}</small><b>${v}</b></div>`).join('');
+  document.getElementById('g-bio').innerHTML = `<h2>In their own words</h2><p>${ph(g.bio)}</p><h2>Favourite place in Bhutan</h2><p>${ph(g.favourite)}</p>`;
+  document.getElementById('g-cta').innerHTML = `<a class="btn btn-blue" href="contact.html">Plan a trip with ${esc(name)}</a><a class="btn btn-wa" href="${waLink(`Hello! I'd like to travel with one of your ${g.speciality.toLowerCase()} guides.`)}" target="_blank" rel="noopener">${I.wa}WhatsApp us</a>`;
+  document.getElementById('g-tours').innerHTML = S.tours.filter(t => g.cats.includes(t.cat)).slice(0, 3).map(R.tour).join('');
+  document.getElementById('g-more').innerHTML = S.guides.filter(x => x.slug !== g.slug).map(R.guide).join('');
+  reveal();
+})();
+</script>
+</body>
+</html>

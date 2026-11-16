@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About Us: A Family-Run Agency in Thimphu | 555 Holidays</title>
+<meta name="description" content="Meet 555 Holidays: a small, family-run Bhutanese travel agency in Thimphu. Our story, our guides, and how we try to leave Bhutan better than we found it.">
+<link rel="canonical" href="https://bhutantourinfo.com/about.html">
+<meta property="og:title" content="About 555 Holidays">
+<meta property="og:image" content="https://bhutantourinfo.com/images/rev-3.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="about">
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<header class="phero">
+  <img src="images/exp-farmhouse.jpg" alt="A traditional Bhutanese farmhouse beneath snow-capped peaks">
+  <div data-nav></div>
+  <div class="copy">
+    <div class="crumb"><a href="index.html">Home</a><span>/</span><span>About</span></div>
+    <h1>Bhutan is our home, not our product</h1>
+    <p>A small, family-run agency in Thimphu, planning journeys for people we hope will become friends.</p>
+  </div>
+</header>
+
+<main id="main">
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <svg class="swirl" style="top:50%;height:300px" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 60 C100 40 160 120 240 200 C320 280 420 250 430 170 C440 90 360 60 330 140 C290 250 380 300 560 290 C760 280 1000 220 1220 200"/></svg>
+  <div class="wrap z">
+    <div class="story">
+      <span class="label rv" style="margin-top:.6em">Our story</span>
+      <div class="text rv">
+        <p>We started 555 Holidays with a simple wish: to show visitors the Bhutan we grew up in.</p>
+        <p><mark class="ph">[FOUNDING STORY: who started the agency, when, and why. 2–3 sentences in your own words.]</mark></p>
+        <p>For more than 20 years we've planned private journeys built around monasteries, festivals and Himalayan scenery, with local guides we call Chief Experience Officers, who live in the valleys they show you.</p>
+        <p>We believe in tourism the Bhutanese way: high value, low impact. That means working with local communities, protecting nature and culture, and keeping the balance of adventure, culture and rest that Gross National Happiness asks of all of us.</p>
+      </div>
+      <div class="story-photo rv"><figure class="pcard"><img src="images/exp-lamps.jpg" alt="Rows of butter lamps at the Memorial Chorten in Thimphu" loading="lazy"><figcaption class="cap">Butter lamps at the Memorial Chorten, Thimphu</figcaption></figure></div>
+    </div>
+    <div class="impact" id="impact"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="lead rv"><span class="label">How we travel</span><h2 class="h2">What we promise you</h2></div>
+    <div class="cats" id="promises"></div>
+  </div>
+</section>
+
+<section id="guides">
+  <div class="wrap">
+    <div class="lead rv"><span class="label">The people you'll travel with</span><h2 class="h2">Our guides</h2></div>
+    <div class="guides" id="guide-grid"></div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)" aria-label="Licences and memberships">
+  <div class="wrap"><div class="trust rv" id="trust"></div></div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="cta-block rv">
+      <img src="images/dest-phobjikha.jpg" alt="" loading="lazy">
+      <div><h2>Let's plan something together</h2><p class="intro">Tell us a little about yourself and what draws you to Bhutan. We'll take it from there.</p></div>
+      <form data-enquiry data-title="Start a conversation"></form>
+    </div>
+  </div>
+</section>
+</main>
+<footer data-footer></footer>
+</div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  const { S, R, ph, I, reveal } = window.UI;
+  document.getElementById('impact').innerHTML = S.impact.map(s => `<div class="tile rv"><b>${ph(s.num)}</b><small>${ph(s.label)}</small></div>`).join('');
+  const P = [
+    ['Private, small and unhurried', 'Every journey is just you and your companions, with room to linger, change plans or rest.', 'exp-dress2'],
+    ['Real places, real people', 'Farmhouse lunches with families we know, festivals among neighbours. Nothing is staged.', 'exp-dotsho'],
+    ['Travel that gives back', 'We hire locally, choose family-run lodges, and return part of every booking to communities and conservation.', 'about-2']
+  ];
+  document.getElementById('promises').innerHTML = P.map(([t, d, im]) => `<article class="cat rv"><div class="pcard"><img src="images/${im}.jpg" alt="" loading="lazy"></div><h3 class="h3">${t}</h3><p>${d}</p></article>`).join('');
+  document.getElementById('guide-grid').innerHTML = S.guides.map(R.guide).join('');
+  const icons = [I.shield, I.users, I.flag, I.owl];
+  document.getElementById('trust').innerHTML = S.trust.map((t, i) => `<a href="${/^\[/.test(t.url) ? '#' : t.url}" ${/^\[/.test(t.url) ? '' : 'target="_blank" rel="noopener"'}><span class="ic">${icons[i]}</span><span><b>${ph(t.name)}</b><small>${ph(t.sub)}</small></span></a>`).join('');
+  reveal();
+})();
+</script>
+</body>
+</html>

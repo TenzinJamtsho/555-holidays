@@ -1,0 +1,14 @@
+# Earlier design explorations (kept locally, not published)
+sites/
+
+# Reference screenshots of other designers' templates
+templates/
+
+# Internal content notes
+info.md
+
+# OS / editor clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
