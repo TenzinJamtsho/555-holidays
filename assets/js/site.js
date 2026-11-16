@@ -113,9 +113,10 @@
 
   /* ---------- card renderers ---------- */
   const R = {
-    exp: e => `<article class="rv">
-        <div class="pcard"><img src="${img(e.img)}" alt="" loading="lazy"><span class="chip tag-${esc(e.tag)}">${esc(e.tag)}</span></div>
-        <h3>${esc(e.title)}</h3><p>${esc(e.line)}</p></article>`,
+    exp: (e, i = 0) => `<article class="xcard" style="animation-delay:${Math.min(i, 11) * 45}ms">
+        <img src="${img(e.img)}" alt="" loading="lazy">
+        <span class="xtag" data-t="${esc(e.tag)}"><i aria-hidden="true"></i>${esc(e.tag)}</span>
+        <div class="txt"><h3>${esc(e.title)}</h3><p>${ph(e.line)}</p></div></article>`,
 
     cat: c => `<article class="cat rv">
         <a class="pcard" href="tours.html#${c.key}" aria-label="${esc(c.name)} tours"><img src="${img(c.img)}" alt="" loading="lazy"></a>
@@ -237,7 +238,17 @@
   function reveal(root = document) {
     const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08 });
     root.querySelectorAll('.rv:not(.in)').forEach(el => io.observe(el));
+    check();
   }
+  // backup for the observer: reveal anything already on screen (e.g. after jumping to a #link)
+  function check() {
+    const h = innerHeight;
+    document.querySelectorAll('.rv:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < h * .95 && r.bottom > 0) el.classList.add('in'); });
+  }
+  let ticking = false;
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { check(); ticking = false; }); } }, { passive: true });
+  addEventListener('load', () => setTimeout(check, 50));
+  addEventListener('hashchange', () => setTimeout(check, 50));
 
   /* expose for page scripts */
   window.UI = { S, C, esc, ph, phHtml, isPh, param, img, I, R, waLink, mailLink, reveal, enquiryForm };

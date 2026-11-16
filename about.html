@@ -82,7 +82,7 @@
   document.getElementById('impact').innerHTML = S.impact.map(s => `<div class="tile rv"><b>${ph(s.num)}</b><small>${ph(s.label)}</small></div>`).join('');
   const P = [
     ['Private, small and unhurried', 'Every journey is just you and your companions, with room to linger, change plans or rest.', 'exp-dress2'],
-    ['Real places, real people', 'Farmhouse lunches with families we know, festivals among neighbours. Nothing is staged.', 'exp-dotsho'],
+    ['Real places, real people', 'Farmhouse lunches with families we know, festivals among neighbours. Nothing is staged.', 'exp-market'],
     ['Travel that gives back', 'We hire locally, choose family-run lodges, and return part of every booking to communities and conservation.', 'about-2']
   ];
   document.getElementById('promises').innerHTML = P.map(([t, d, im]) => `<article class="cat rv"><div class="pcard"><img src="images/${im}.jpg" alt="" loading="lazy"></div><h3 class="h3">${t}</h3><p>${d}</p></article>`).join('');

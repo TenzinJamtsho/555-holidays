@@ -37,6 +37,11 @@
     </div>
     <div id="groups"></div>
 
+    <div class="tgroup" id="calendar" data-cat="festival">
+      <div class="tgroup-head rv"><div><h2 class="h2">Festival calendar</h2><p>Festival dates follow the lunar calendar and change every year. Each one can become a private, customisable trip.</p></div><span class="label" id="cal-count"></span></div>
+      <div class="deps" id="cal-grid"></div>
+    </div>
+
     <div class="callout blue rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
       <div>Wondering about cost? We explain exactly what a day in Bhutan costs, including the Sustainable Development Fee, in our <a href="faq.html#planning-cost" style="text-decoration:underline">FAQ</a> and <a href="travel-info.html#costs" style="text-decoration:underline">travel info</a>.</div></div>
   </div>
@@ -75,15 +80,26 @@
       <div class="tcards">${list.map(R.tour).join('')}</div></div>`;
   }).join('');
 
+  document.getElementById('cal-grid').innerHTML = S.festivals.map(R.dep).join('');
+  document.getElementById('cal-count').textContent = `${S.festivals.length} festivals`;
+
   const btns = document.querySelectorAll('.filters button');
   function apply(f) {
     btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.f === f));
-    groups.querySelectorAll('.tgroup').forEach(g => g.hidden = f !== 'all' && g.dataset.cat !== f);
+    document.querySelectorAll('.tgroup').forEach(g => g.hidden = f !== 'all' && g.dataset.cat !== f);
     reveal();
   }
   btns.forEach(b => b.addEventListener('click', () => { apply(b.dataset.f); history.replaceState(null, '', b.dataset.f === 'all' ? 'tours.html' : '#' + b.dataset.f); }));
   const h = location.hash.slice(1);
   if (['cultural', 'festival', 'trek'].includes(h)) apply(h);
+  if (h === 'calendar') {
+    apply('festival');
+    const cal = document.getElementById('calendar');
+    cal.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
+    const jump = () => cal.scrollIntoView({ behavior: 'instant', block: 'start' });
+    jump();
+    addEventListener('load', jump); // again once photos have loaded
+  }
 })();
 </script>
 </body>

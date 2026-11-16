@@ -119,19 +119,42 @@ section{position:relative;padding-top:clamp(80px,9vw,140px)}
 .tag-Food{background:#fff;color:#a06a00}
 .tag-Spiritual{background:#fff;color:#7a3db8}
 .tag-Craft{background:#fff;color:#1763a8}
+.tag-Wellness{background:#fff;color:#0f7f74}
+.tag-Nightlife{background:#fff;color:#4338ca}
+.tag-Nature{background:#fff;color:#2f7d32}
+.tag-Adventure{background:#fff;color:#c2410c}
 
 /* ---------- 2. moments to live (experiences) ---------- */
-.exp{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,32px)}
-.exp article:nth-child(3n+2){margin-top:clamp(30px,4vw,70px)}
-.exp .pcard{aspect-ratio:4/4.4}
-.exp .pcard .chip{position:absolute;z-index:1;top:14px;left:14px}
-.exp h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,1.8vw,28px);line-height:1.15;margin:16px 0 6px}
-.exp p{font-size:14.5px;color:var(--muted);max-width:42ch}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 40px;flex-wrap:wrap;margin-bottom:clamp(26px,2.6vw,40px)}
+.exp-head .intro-p{max-width:50ch}
+.exp-head .filters{margin:0;justify-content:flex-end}
+.exp-head .filters button{padding:7px 15px;font-size:13px}
+.exp{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.4vw,22px)}
+.xcard{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;color:#fff;isolation:isolate;background:#22303f;box-shadow:0 22px 40px -30px rgba(15,30,60,.6);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;animation:xin .55s both}
+.xcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.xcard::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,16,28,.18) 0%,rgba(8,16,28,0) 28%,rgba(8,16,28,.1) 50%,rgba(8,16,28,.82) 100%)}
+.xcard:hover{transform:translateY(-5px);box-shadow:0 30px 50px -30px rgba(15,30,60,.75)}
+.xcard:hover img{transform:scale(1.06)}
+.xtag{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:5px 11px 5px 9px;border-radius:999px;background:rgba(12,20,34,.48);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.xtag i{width:7px;height:7px;border-radius:50%;background:#fff}
+.xtag[data-t="Culture"] i{background:#ff8a5b}
+.xtag[data-t="Food"] i{background:#ffc940}
+.xtag[data-t="Spiritual"] i{background:#c9a2ff}
+.xtag[data-t="Wellness"] i{background:#5fe0c8}
+.xtag[data-t="Craft"] i{background:#7cc4ff}
+.xtag[data-t="Nightlife"] i{background:#a5b4fc}
+.xtag[data-t="Nature"] i{background:#86efac}
+.xtag[data-t="Adventure"] i{background:#fb923c}
+.xcard .txt{position:absolute;left:18px;right:18px;bottom:18px}
+.xcard h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.55vw,25px);line-height:1.12;text-shadow:0 1px 14px rgba(0,0,0,.25)}
+.xcard p{font-size:13.5px;line-height:1.5;opacity:.88;margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.xcard p mark.ph{font-size:11px}
+@keyframes xin{from{opacity:0;transform:translateY(12px)}}
 
 /* ---------- 3. philosophy ---------- */
 .story{display:grid;grid-template-columns:minmax(120px,1fr) 2.1fr 2.1fr;gap:clamp(20px,3vw,56px);align-items:start}
 .story .text p{font-size:clamp(15px,1.1vw,17px);color:var(--ink-2);margin-bottom:16px}
-.story .text p:first-child{font-family:var(--serif);font-size:clamp(22px,1.9vw,30px);line-height:1.3;color:var(--ink)}
+.story .text p:first-of-type{font-family:var(--serif);font-size:clamp(22px,1.9vw,30px);line-height:1.3;color:var(--ink)}
 .values{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
 .values li{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:600}
 .values li svg{width:20px;height:20px;color:var(--blue);flex:none;margin-top:1px}
@@ -404,6 +427,7 @@ a.ccard:hover{border-color:var(--blue)}
   .burger{display:grid}
   .hnav nav.open{display:flex;flex-direction:column;position:absolute;top:84px;right:20px;left:20px;background:rgba(20,30,45,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:20px 22px;border-radius:16px;gap:14px;font-size:16px}
   .deps,.tcards,.posts{grid-template-columns:1fr 1fr}
+  .exp{grid-template-columns:repeat(3,1fr)}
   .guides{grid-template-columns:1fr 1fr}
   .story{grid-template-columns:1fr 1fr}
   .story>.label{grid-column:1/-1}
@@ -424,8 +448,13 @@ a.ccard:hover{border-color:var(--blue)}
   .hero-copy{grid-template-columns:1fr}
   .phero{border-radius:22px;height:auto;min-height:420px;padding-top:110px}
   .lead,.lead.with-link,.faq-home{grid-template-columns:1fr;gap:8px}
-  .exp,.cats,.deps,.tcards,.posts{grid-template-columns:1fr}
-  .exp article:nth-child(3n+2){margin-top:0}
+  .cats,.deps,.tcards,.posts{grid-template-columns:1fr}
+  .exp{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -8px;padding:4px 8px 18px;gap:12px}
+  .exp::-webkit-scrollbar{display:none}
+  .xcard{flex:0 0 74%;scroll-snap-align:start}
+  .exp-head .filters{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -8px;padding:0 8px;width:calc(100% + 16px)}
+  .exp-head .filters::-webkit-scrollbar{display:none}
+  .exp-head .filters button{flex:none}
   .story{grid-template-columns:1fr}
   .values{grid-template-columns:1fr}
   .revs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;scrollbar-width:none;margin:0 -4px;padding:0 4px}
@@ -445,3 +474,94 @@ a.ccard:hover{border-color:var(--blue)}
   .badge{white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* =====================================================================
+   Homepage story layout (chapters)
+   ===================================================================== */
+.chap{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);letter-spacing:.02em}
+.chap b{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1;color:var(--blue);letter-spacing:0}
+.story-sec{padding-top:clamp(100px,11vw,170px)}
+.bridge{font-family:var(--serif);font-size:clamp(22px,2vw,30px);line-height:1.35;color:var(--ink);max-width:30ch}
+.bridge span{color:var(--muted)}
+
+/* chapter 1: arrival (editorial split) */
+.arrive{display:grid;grid-template-columns:minmax(120px,1fr) 2.5fr 2fr;gap:clamp(24px,4vw,72px);align-items:center}
+.arrive h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,3.6vw,58px);line-height:1.05;margin-bottom:18px;max-width:14ch}
+.arrive-text>p{font-size:clamp(15.5px,1.15vw,18px);color:var(--ink-2);max-width:48ch}
+.facts-inline{display:flex;gap:clamp(24px,3vw,48px);flex-wrap:wrap;margin:28px 0;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.facts-inline b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.2vw,34px);color:var(--ink);line-height:1.1}
+.arrive-photo{position:relative}
+.arrive-photo .frame{border-radius:22px;overflow:hidden;aspect-ratio:4/5;max-height:600px;box-shadow:0 34px 60px -40px rgba(15,30,60,.55)}
+.arrive-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 2.4s cubic-bezier(.2,.8,.2,1)}
+.arrive-photo.in img{transform:scale(1)}
+.arrive-photo figcaption{font-size:13px;color:var(--muted);margin-top:12px;display:flex;align-items:center;gap:8px}
+.arrive-photo figcaption::before{content:"";width:22px;height:1px;background:currentColor}
+
+/* chapter 2: a day in Bhutan */
+.day{position:relative;display:grid;gap:clamp(40px,4vw,70px);margin-top:clamp(50px,5vw,80px)}
+.mscroll{position:relative}
+.mscroll.pinned .moment{position:sticky;top:var(--stick,90px)}
+.m-list button{position:relative}
+.m-list button::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:var(--blue);transform:scaleY(0);transition:transform .35s}
+.m-list button[aria-current="true"]::before{transform:scaleY(1)}
+.m-progress{display:flex;gap:6px;margin-top:18px}
+.m-progress i{height:3px;flex:1;max-width:46px;border-radius:3px;background:var(--line);transition:background .3s}
+.m-progress i.on{background:var(--blue)}
+.moment{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,4.4vw,80px);align-items:center}
+.moment.flip .m-photo{order:2}
+.m-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3.05;background:#1f2a38;box-shadow:0 34px 60px -40px rgba(15,30,60,.6)}
+.m-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s ease,transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.m-photo img.out{opacity:0}
+.m-photo:hover img{transform:scale(1.03)}
+.m-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 62%,rgba(0,0,0,.5))}
+.when{position:absolute;z-index:1;top:18px;left:18px;display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:600;padding:7px 14px 7px 10px;border-radius:999px;background:rgba(12,20,34,.45);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.when svg{width:18px;height:18px}
+.m-cap{position:absolute;z-index:1;left:20px;right:20px;bottom:18px;color:#fff;font-size:15px;font-weight:500;transition:opacity .3s}
+.m-text .kicker{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.m-text h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,2.8vw,44px);line-height:1.08;margin:10px 0 12px}
+.m-text>p{font-size:15.5px;color:var(--ink-2);max-width:46ch}
+.m-list{list-style:none;margin-top:24px;display:grid;gap:4px}
+.m-list button{display:grid;grid-template-columns:60px 1fr;gap:16px;align-items:center;width:100%;text-align:left;padding:10px;border-radius:16px;transition:background .25s}
+.m-list button:hover{background:var(--soft)}
+.m-list button[aria-current="true"]{background:var(--sky)}
+.m-list img{width:60px;height:60px;border-radius:12px;object-fit:cover}
+.m-list b{display:block;font-size:16px;font-weight:600;line-height:1.3}
+.m-list small{display:block;font-size:13.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+.day-note{margin-top:clamp(50px,5vw,80px);text-align:center;font-size:15px;color:var(--ink-2)}
+.day-note a{color:var(--blue);font-weight:700}
+
+/* chapter 3: numbers row */
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(50px,5vw,80px)}
+.numbers div{padding:26px 22px}
+.numbers div+div{border-left:1px solid var(--line)}
+.numbers b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(34px,3vw,48px);line-height:1.05}
+.numbers b mark.ph{font-size:.5em;vertical-align:middle}
+.numbers small{font-size:13.5px;color:var(--muted)}
+
+/* chapter 4: festivals subsection */
+.sub-lead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin:clamp(60px,6vw,96px) 0 26px}
+.sub-lead h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.4vw,36px)}
+.sub-lead p{color:var(--muted);font-size:14.5px;max-width:52ch;margin-top:6px}
+
+@media (max-width:1180px){
+  .numbers{grid-template-columns:1fr 1fr}
+  .numbers div:nth-child(3){border-left:0}
+  .numbers div:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:820px){
+  .moment{grid-template-columns:1fr;gap:18px}
+  .moment.flip .m-photo{order:0}
+  .m-photo,.m-progress{display:none}
+  .m-list{gap:18px}
+  .m-list button{grid-template-columns:1fr;padding:0;gap:12px;background:none!important;cursor:default}
+  .m-list button::before{display:none}
+  .m-list img{width:100%;height:auto;aspect-ratio:16/10;border-radius:16px}
+  .arrive{grid-template-columns:1fr}
+  .arrive-photo .frame{aspect-ratio:4/3.4}
+  .chap{flex-direction:row;align-items:baseline;gap:10px}
+  .chap b{font-size:24px}
+}
+@media (max-width:520px){
+  .numbers{grid-template-columns:1fr}
+  .numbers div+div{border-left:0;border-top:1px solid var(--line)}
+}

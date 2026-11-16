@@ -25,18 +25,30 @@ window.SITE = {
 
   /* ---------- "Moments to Live" experiences (homepage) ---------- */
   experiences: [
-    { title: "Wear the gho and kira for a day", tag: "Culture", img: "exp-dress2",
+    { title: "Wear the gho and kira", time: "dawn", tag: "Culture", img: "exp-kira",
       line: "We dress you in Bhutan's national dress, and you'll feel the difference walking into a dzong." },
-    { title: "Farmhouse home-kitchen cooking", tag: "Food", img: "exp-farmhouse",
+    { title: "Farmhouse home-kitchen cooking", time: "midday", tag: "Food", img: "homestays3",
       line: "Cook ema datshi, chillies and cheese, by the hearth with a village family." },
-    { title: "Archery with locals", tag: "Culture", img: "gal-3",
+    { title: "Archery with locals", time: "midday", tag: "Culture", img: "gal-3",
       line: "Try the national sport, complete with the songs, dances and friendly teasing." },
-    { title: "Butter-lamp offering with a monk", tag: "Spiritual", img: "exp-lamps",
+    { title: "Butter-lamp offering with a monk", time: "evening", tag: "Spiritual", img: "exp-lamps",
       line: "Light a butter lamp beside a monk and learn what the prayer means." },
-    { title: "Hot-stone bath (dotsho)", tag: "Spiritual", img: "exp-dotsho",
+    { title: "Hot-stone bath (dotsho)", time: "evening", tag: "Wellness", img: "hotstone",
       line: "Soak in a wooden tub warmed with fire-heated river stones after a day on the trail." },
-    { title: "Traditional craft workshop", tag: "Craft", img: "exp-craft",
-      line: "Sit at a loom or a thangka easel with the artisans keeping these crafts alive." }
+    { title: "Traditional craft workshop", time: "midday", tag: "Craft", img: "exp-craft",
+      line: "Sit at a loom or a thangka easel with the artisans keeping these crafts alive." },
+    { title: "Thimphu after dark", time: "night", tag: "Nightlife", img: "exp-night",
+      line: "Live-music bars, a traditional drayang show and late-night momos in the capital. [CONFIRM VENUES YOU RECOMMEND]" },
+    { title: "Stargazing in the high valleys", time: "night", tag: "Nature", img: "exp-stars",
+      line: "Far from city lights, we find you a dark meadow, a warm blanket and a flask of butter tea." },
+    { title: "Rafting below Punakha Dzong", time: "midday", tag: "Adventure", img: "exp-raft",
+      line: "Paddle the Pho Chhu or Mo Chhu with a local rafting crew, the dzong rising above the river." },
+    { title: "Morning at the farmers market", time: "dawn", tag: "Food", img: "exp-market",
+      line: "Wander Thimphu's Centenary Farmers Market (Thu–Sun) for chillies, cheese, red rice and incense." },
+    { title: "Gasa hot springs", time: "evening", tag: "Wellness", img: "pkg-adventure",
+      line: "Soak in the Gasa Tshachu, hot springs long believed to heal, beneath Gasa Dzong in the far north." },
+    { title: "Sunrise hike to Tiger's Nest", time: "dawn", tag: "Adventure", img: "rev-1",
+      line: "Set off early with your guide and reach the cliffside monastery before the day-trippers do." }
   ],
 
   /* ---------- Impact stats (placeholders; must be real numbers) ---------- */
@@ -145,9 +157,12 @@ window.SITE = {
     { name: "Trongsa Tshechu", place: "Trongsa", usual: "Late December", dates: "[DEC 2026 DATES]", days: "Tailor-made", tour: null, img: "gal-4", group: "Private" },
     { name: "Punakha Drubchen & Tshechu", place: "Punakha", usual: "February – March", dates: "[2027 DATES]", days: "7 days", tour: "punakha-festival-tour", img: "dest-punakha", group: "Private" },
     { name: "Paro Tshechu", place: "Paro", usual: "Spring (around April)", dates: "[2027 DATES]", days: "10 days", tour: "paro-festival-tour", img: "rev-2", group: "Private" },
+    { name: "Rhododendron Festival", place: "Lamperi Botanical Park, near Dochula", usual: "April", dates: "[2027 DATES]", days: "Tailor-made", tour: null, img: "fest-rhodo", group: "Private" },
     { name: "Ura Yakchoe", place: "Bumthang", usual: "May", dates: "[2027 DATES]", days: "Tailor-made", tour: null, img: "dest-bumthang", group: "Private" },
     { name: "Nimalung Tshechu", place: "Bumthang (Chhume)", usual: "Summer (around July)", dates: "[2027 DATES]", days: "11 days", tour: "nimalung-festival-tour", img: "pkg-cultural", group: "Private" },
-    { name: "Thimphu Tshechu", place: "Thimphu", usual: "Late Sep – early Oct", dates: "[2027 DATES]", days: "8 days", tour: "thimphu-festival-tour", img: "pkg-festival", group: "[SMALL GROUP · MAX X] or Private" }
+    { name: "Thimphu Tshechu", place: "Thimphu", usual: "Late Sep – early Oct", dates: "[2027 DATES]", days: "8 days", tour: "thimphu-festival-tour", img: "pkg-festival", group: "[SMALL GROUP · MAX X] or Private" },
+    { name: "Jomolhari Mountain Festival", place: "Dangochong, Jigme Dorji National Park", usual: "Mid-October", dates: "[2027 DATES]", days: "Highland journey · tailor-made", tour: null, img: "gal-1", group: "Private" },
+    { name: "Royal Highland Festival", place: "Laya, Gasa", usual: "October", dates: "[2027 DATES]", days: "Highland journey · tailor-made", tour: null, img: "fest-laya", group: "Private" }
   ],
 
   /* ---------- Guides (data/guides.ts) ---------- */
@@ -275,7 +290,7 @@ window.SITE = {
       excerpt: "What happens, what to wear, and how to choose the right festival for your dates.",
       body: `<p>A tshechu is a religious festival honouring Guru Rinpoche, who brought Buddhism to Bhutan in the 8th century. For several days, monks and laypeople perform sacred masked dances in the dzong courtyard, and whole communities gather.</p>
 <h2>What to expect</h2><p>Families arrive in their finest gho and kira, with picnics to share. The dances carry blessings, and watching them is considered meritorious.</p>
-<h2>Popular festivals by season</h2><ul><li><strong>February – March:</strong> Punakha Drubchen & Tshechu</li><li><strong>Spring:</strong> Paro Tshechu</li><li><strong>May:</strong> Ura Yakchoe (Bumthang)</li><li><strong>Summer:</strong> Nimalung & Kurjey (Bumthang)</li><li><strong>Late Sep – Oct:</strong> Thimphu Tshechu</li><li><strong>November:</strong> Black-Necked Crane Festival, Jambay Lhakhang Drup</li><li><strong>December:</strong> Druk Wangyel (Dochula), Trongsa Tshechu</li></ul>
+<h2>Popular festivals by season</h2><ul><li><strong>February – March:</strong> Punakha Drubchen & Tshechu</li><li><strong>Spring:</strong> Paro Tshechu, and the Rhododendron Festival at Lamperi near Dochula (April)</li><li><strong>May:</strong> Ura Yakchoe (Bumthang)</li><li><strong>Summer:</strong> Nimalung & Kurjey (Bumthang)</li><li><strong>Late Sep – Oct:</strong> Thimphu Tshechu</li><li><strong>October:</strong> Jomolhari Mountain Festival (Dangochong) and the Royal Highland Festival in Laya, both in the remote high north, so we plan the trek or drive in with you</li><li><strong>November:</strong> Black-Necked Crane Festival, Jambay Lhakhang Drup</li><li><strong>December:</strong> Druk Wangyel (Dochula), Trongsa Tshechu</li></ul>
 <h2>Tips</h2><p>Dress modestly, with long sleeves and long trousers or skirts. Never walk across the dance ground, and ask before photographing people. The big festivals fill up, so book about six months ahead.</p>` }
   ],
 
@@ -285,11 +300,16 @@ window.SITE = {
     ["Mount Jomolhari","Martyn Smith","CC BY 2.0","Mount_Jomolhari_2016.jpg"],
     ["Jomolhari","Christopher Fynn","CC BY-SA 3.0","Mount_Jomolhari_2009-10-06_a.jpg"],
     ["Boys in national dress","Keith Mason","CC BY-SA 3.0","Boys_in_Bhutan_national_dress.jpg"],
+    ["Layap girl, Royal Highland Festival","Gabriel Cubbage","CC BY-SA 4.0","Layup_girl_at_the_Royal_Highlander_Festival.jpg"],
+    ["Rhododendron at Dochula","Franzfoto","CC BY-SA 3.0","Rhododendron_in_Wildform_Dochulapass_3050_m.ü.NN.JPG"],
+    ["Women in kira and tego","Cfynn","CC BY-SA 3.0","Bhutanese_women_at_festival_wearing_Kira_and_Tego.jpg"],
+    ["Norzin Lam, Thimphu at night","Christopher J. Fynn","CC BY-SA 4.0","Norzin_Lam,_Thimphu_at_night_2014-11-09.jpg"],
+    ["Himalayan night sky (Annapurna)","sushan116","CC BY-SA 4.0","Annapurna_at_Night.jpg"],
+    ["Rafting in Punakha","Sonam Thombre","CC BY-SA 4.0","River_Rafting_in_Punakha_.jpg"],
+    ["Centenary Farmers Market","Bernard Gagnon","CC BY-SA 4.0","Centenary_Farmers_Market,_Thimphu_01.jpg"],
     ["Farmhouse, Soe Yaksa","Christopher J. Fynn","CC BY-SA 3.0","Bhutanese_Farmhouse_Soe_Yaksa.jpg"],
     ["Butter lamps, Memorial Chorten","Chuck Moravec","CC BY 2.0","Thimphu_National_Memorial_Chorten_Butter_Lamps_(23130407174).jpg"],
-    ["Preparing a hot stone bath","Stephen Shephard","CC BY-SA 3.0","Preparing_a_hot_stone_bath,_Bumthang.jpg"],
     ["Weaving","Cfynn","CC BY-SA 3.0","Weaving-Bhutan-01.JPG"],
-    ["Thangka, School of Traditional Arts","Stephen Shephard","CC BY-SA 3.0","A_thangka_(religious_painting),_School_of_Traditional_Arts,_Thimphu.jpg"],
     ["Archery","Footlooseinme","CC BY-SA 4.0","Archery_in_Bhutan.jpg"],
     ["Tiger's Nest","Bernard Gagnon","CC BY-SA 4.0","Taktsang_Monastery,_Bhutan_01.jpg"],
     ["Tiger's Nest (edited)","Nina R","CC BY 2.0","Paro_Taktsang,_Bhutan_(edited).jpg"],
