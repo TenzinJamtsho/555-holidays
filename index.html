@@ -224,9 +224,10 @@
     const first = items[0];
     return `<div class="mscroll" data-part="${p.key}"><article class="moment${i % 2 ? ' flip' : ''}">
       <div class="m-photo rv">
-        <img src="${img(first.img)}" alt="${esc(first.title)}" loading="lazy">
+        ${items.map((e, k) => `<img class="lay" src="${img(e.img)}" alt="${k === 0 ? esc(e.title) : ''}" loading="lazy"${k ? ' style="clip-path:polygon(0 140%,100% 100%,100% 100%,0 100%)"' : ''}>`).join('')}
         <span class="when">${p.icon}${p.when}</span>
-        <span class="m-cap">${esc(first.title)}</span>
+        <span class="m-cap"><span>${esc(first.title)}</span></span>
+        <span class="m-count" aria-hidden="true"><b>1</b> / ${items.length}</span>
       </div>
       <div class="m-text rv">
         <span class="kicker">${p.kicker}</span>
@@ -241,20 +242,40 @@
   }).join('');
   // scroll through each part of the day: the panel pins in place and steps through its moments
   const desktop = matchMedia('(min-width: 821px)');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const blocks = [...document.querySelectorAll('.mscroll')].map(el => ({
     el, moment: el.querySelector('.moment'), items: S.experiences.filter(x => x.time === el.dataset.part),
-    photo: el.querySelector('.m-photo img'), cap: el.querySelector('.m-cap'),
+    lays: [...el.querySelectorAll('.m-photo .lay')], cap: el.querySelector('.m-cap'), count: el.querySelector('.m-count b'),
     btns: [...el.querySelectorAll('.m-list button')], bars: [...el.querySelectorAll('.m-progress i')], idx: 0, step: 0, stick: 0
   }));
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  // the active moment changes: update list, progress, counter and caption
   function show(b, i) {
     if (i === b.idx) return;
     b.idx = i;
     const it = b.items[i];
     b.btns.forEach((x, k) => x.setAttribute('aria-current', k === i));
     b.bars.forEach((x, k) => x.classList.toggle('on', k <= i));
-    b.photo.classList.add('out');
-    clearTimeout(b.t);
-    b.t = setTimeout(() => { b.photo.src = img(it.img); b.photo.alt = it.title; b.cap.textContent = it.title; b.photo.classList.remove('out'); }, 200);
+    b.lays.forEach((l, k) => l.alt = k === i ? it.title : '');
+    b.count.textContent = i + 1;
+    b.cap.innerHTML = `<span>${esc(it.title)}</span>`;
+  }
+  // scroll position -> diagonal wipe between photos (scrubbed, so it follows the scroll both ways)
+  function paint(b, pos) {
+    const n = b.lays.length;
+    const pin = k => k === 0 ? 1 : (reduce ? (pos >= k - 0.5 ? 1 : 0) : clamp((pos - (k - 1) - 0.2) / 0.6));
+    let active = 0;
+    b.lays.forEach((l, k) => {
+      const p = pin(k), out = k + 1 < n ? pin(k + 1) : 0;
+      if (k > 0) {
+        const yl = (1 - p) * 140, yr = yl - 40;   // diagonal edge, rising from bottom-right to top-left
+        l.style.clipPath = p >= 1 ? 'none' : `polygon(0 ${yl}%, 100% ${yr}%, 100% 100%, 0 100%)`;
+        if (p >= 0.5) active = k;
+      }
+      l.style.transform = `scale(${((k ? 1.12 - 0.12 * p : 1) * (1 + 0.06 * out)).toFixed(4)})`;
+      l.style.filter = out > 0 ? `brightness(${(1 - 0.35 * out).toFixed(3)})` : '';
+    });
+    show(b, active);
   }
   function layout() {
     blocks.forEach(b => {
@@ -262,7 +283,7 @@
       b.el.classList.add('pinned');
       const h = b.moment.offsetHeight;
       b.stick = Math.max(80, (innerHeight - h) / 2);
-      b.step = Math.max(260, innerHeight * 0.42);
+      b.step = Math.max(300, innerHeight * 0.55);
       b.moment.style.setProperty('--stick', b.stick + 'px');
       b.el.style.height = (h + (b.items.length - 1) * b.step) + 'px';
     });
@@ -271,8 +292,9 @@
   function onScroll() {
     if (!desktop.matches) return;
     blocks.forEach(b => {
-      const passed = b.stick - b.el.getBoundingClientRect().top;
-      show(b, Math.min(b.items.length - 1, Math.max(0, Math.floor(passed / b.step + 0.15))));
+      const r = b.el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > innerHeight + 200) return;   // off screen: skip
+      paint(b, (b.stick - r.top) / b.step);
     });
   }
   addEventListener('scroll', onScroll, { passive: true });
