@@ -1,0 +1,53 @@
+---
+/* Base layout: <head> (SEO, social previews, structured data) + footer + scripts */
+import { LAUNCHED, FORM_ENDPOINT } from '../config.js';
+import { C, abs, orgLd, plain } from '../lib/site.js';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: string;
+  jsonld?: object[];
+}
+const { title, description, image = '/images/monks-hero.jpg', type = 'website', jsonld = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const desc = plain(description);
+const ld = [orgLd(), ...jsonld].map(o => JSON.stringify(o).replace(/</g, '\\u003c'));
+---
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script is:inline>document.documentElement.classList.remove('no-js')</script>
+<title>{title}</title>
+<meta name="description" content={desc}>
+<link rel="canonical" href={canonical}>
+{!LAUNCHED && <meta name="robots" content="noindex, nofollow">}
+<meta property="og:type" content={type}>
+<meta property="og:site_name" content={C.name}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={desc}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={abs(image)}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1b2230">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="sitemap" href="/sitemap-index.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+{ld.map(json => <script type="application/ld+json" set:html={json} />)}
+</head>
+<body data-form-endpoint={FORM_ENDPOINT} data-email={C.email} data-wa={C.whatsapp} data-name={C.name}>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+<slot />
+<Footer />
+</div>
+<script is:inline src="/assets/js/ui.js" defer></script>
+</body>
+</html>

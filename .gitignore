@@ -12,3 +12,9 @@ info.md
 Thumbs.db
 desktop.ini
 .vscode/
+node_modules/
+dist/
+.astro/
+
+# Source documents (official PDFs)
+*.pdf

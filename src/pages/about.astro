@@ -1,30 +1,18 @@
-<!doctype html>
-<html lang="en" class="no-js">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About Us: Bhutan, the Way We Live It | 555 Holidays</title>
-<meta name="description" content="555 Holidays is a Bhutanese-owned, licensed travel agency for slow, unhurried journeys: short drives, local life and time to rest. Offices in Thimphu, Washington DC and India.">
-<link rel="canonical" href="https://bhutantourinfo.com/about.html">
-<meta property="og:title" content="About 555 Holidays">
-<meta property="og:image" content="https://bhutantourinfo.com/images/rev-3.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css">
-</head>
-<body data-page="about">
-<a class="skip" href="#main">Skip to content</a>
-<div class="page">
-<header class="phero">
-  <img src="images/exp-farmhouse.jpg" alt="A traditional Bhutanese farmhouse beneath snow-capped peaks">
-  <div data-nav></div>
-  <div class="copy">
-    <div class="crumb"><a href="index.html">Home</a><span>/</span><span>About</span></div>
-    <h1>Bhutan, the way we live it.</h1>
-    <p>Hundreds of agents sell the same Bhutan. We share the one we live.</p>
-  </div>
-</header>
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import { S, C, R, U, crumbsLd } from '../lib/site.js';
+---
+<Base
+  title="About 555 Holidays: Bhutan, the Way We Live It"
+  description="555 Holidays is a Bhutanese-owned, licensed travel agency for slow, unhurried journeys: short drives, local life and time to rest. Offices in Thimphu, Washington DC and India."
+  image="/images/exp-farmhouse.jpg"
+  jsonld={[crumbsLd([['Home', '/'], ['About', U.about]])]}
+>
+<PageHero img="/images/exp-farmhouse.jpg" alt="A traditional Bhutanese farmhouse beneath snow-capped peaks" page="about" crumbs={[['About']]}
+  title="Bhutan, the way we live it."
+  sub="Hundreds of agents sell the same Bhutan. We share the one we live." />
 
 <main id="main">
 <section style="padding-top:clamp(60px,6vw,100px)">
@@ -38,7 +26,7 @@
         <p>But for us, Bhutan is something else. It is waking up slowly. Breakfast with no rush. No traffic, no tight schedule, and time to take our own time.</p>
         <p>That is why we started 555 Holidays: to show you Bhutan as we know it, not as everyone else shows it.</p>
       </div>
-      <div class="story-photo rv"><figure class="pcard"><img src="images/exp-lamps.jpg" alt="Rows of butter lamps at the Memorial Chorten in Thimphu" loading="lazy"><figcaption class="cap">Butter lamps at the Memorial Chorten, Thimphu</figcaption></figure></div>
+      <div class="story-photo rv"><figure class="pcard"><img src="/images/exp-lamps.jpg" alt="Rows of butter lamps at the Memorial Chorten in Thimphu" loading="lazy"><figcaption class="cap">Butter lamps at the Memorial Chorten, Thimphu</figcaption></figure></div>
     </div>
   </div>
 </section>
@@ -51,7 +39,7 @@
       <li><b>Local life, not a checklist</b><span>Meals, homes, and everyday moments with the people who live here.</span></li>
       <li><b>Bhutanese-owned and run</b><span>You deal directly with us, not a middleman.</span></li>
       <li><b>Small and personal</b><span>Your trip is planned around your pace, not a fixed route.</span></li>
-      <li><b>Licensed and trusted</b><span>Fully licensed to operate in Bhutan (Licence No. 6013293).</span></li>
+      <li><b>Licensed and trusted</b><span>Fully licensed to operate in Bhutan (Licence No. {C.licence}).</span></li>
     </ol>
   </div>
 </section>
@@ -70,44 +58,29 @@
 <section id="guides">
   <div class="wrap">
     <div class="lead rv"><span class="label">The people you'll travel with</span><h2 class="h2">Our guides</h2></div>
-    <div class="guides" id="guide-grid"></div>
+    <div class="guides" set:html={S.guides.map(R.guide).join('')} />
   </div>
 </section>
 
 <section id="offices" aria-labelledby="off-h">
   <div class="wrap">
     <div class="lead rv"><span class="label">Where to find us</span><h2 class="h2" id="off-h">Our offices</h2></div>
-    <div class="offices" id="offices-grid"></div>
+    <div class="offices" set:html={C.offices.map(R.office).join('')} />
   </div>
 </section>
 
 <section style="padding-top:clamp(60px,6vw,100px)" aria-label="Licences and memberships">
-  <div class="wrap"><div class="trust rv" id="trust"></div></div>
+  <div class="wrap"><div class="trust rv" set:html={R.trust()} /></div>
 </section>
 
 <section style="padding-top:clamp(60px,6vw,100px)">
   <div class="wrap">
     <div class="cta-block rv">
-      <img src="images/dest-phobjikha.jpg" alt="" loading="lazy">
+      <img src="/images/dest-phobjikha.jpg" alt="" loading="lazy">
       <div><h2>Let's plan something together</h2><p class="intro">Tell us a little about yourself and what draws you to Bhutan. We'll take it from there.</p></div>
-      <form data-enquiry data-title="Start a conversation"></form>
+      <EnquiryForm title="Start a conversation" />
     </div>
   </div>
 </section>
 </main>
-<footer data-footer></footer>
-</div>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/site.js"></script>
-<script>
-(function () {
-  const { S, R, ph, I, reveal } = window.UI;
-  document.getElementById('offices-grid').innerHTML = S.company.offices.map(R.office).join('');
-  document.getElementById('guide-grid').innerHTML = S.guides.map(R.guide).join('');
-  const icons = [I.shield, I.users, I.flag, I.owl];
-  document.getElementById('trust').innerHTML = S.trust.map((t, i) => `<a href="${/^\[/.test(t.url) ? '#' : t.url}" ${/^\[/.test(t.url) ? '' : 'target="_blank" rel="noopener"'}><span class="ic">${icons[i]}</span><span><b>${ph(t.name)}</b><small>${ph(t.sub)}</small></span></a>`).join('');
-  reveal();
-})();
-</script>
-</body>
-</html>
+</Base>

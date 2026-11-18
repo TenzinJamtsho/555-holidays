@@ -1,0 +1,203 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import { S, C, R, I, U, esc, ph, img, waLink, mailLink, isPh } from '../lib/site.js';
+
+const sun = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
+const PARTS = [
+  { key: 'dawn', when: 'Dawn', icon: sun('<path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 7V4M5.6 11.6 4 10M18.4 11.6 20 10"/>'),
+    kicker: 'Early light', title: 'The valley wakes', text: "Prayer flags catch the first breeze, and the market stalls fill with chillies and cheese. Set off for Tiger's Nest before the day-trippers, or simply dress for the day the Bhutanese way." },
+  { key: 'midday', when: 'Midday', icon: sun('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+    kicker: 'Hands-on', title: "Do, don't just see", text: "Draw a bow beside the archers, cook at a farmhouse hearth, sit at a weaver's loom, or paddle the river below Punakha Dzong." },
+  { key: 'evening', when: 'Evening', icon: sun('<path d="M3 18h18M7 18a5 5 0 0 1 10 0M12 9v3M9 6l3-3 3 3"/>'),
+    kicker: 'Slow down', title: 'Warmth after the trail', text: 'Light a butter lamp beside a monk, then sink into a wooden tub warmed by fire-heated river stones as the light leaves the valley.' },
+  { key: 'night', when: 'Night', icon: sun('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/>'),
+    kicker: 'After dark', title: 'Music, then stars', text: 'Live music and late momos in the capital, or a dark meadow far from any city glow, with a blanket and a flask of butter tea.' },
+].map(p => ({ ...p, items: S.experiences.filter(e => e.time === p.key) }));
+
+const google = `<span class="g"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3Z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2L6.4 14Z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.4 3-4.1 5.6-4.1Z"/></svg></span>`;
+const reviewsLive = !isPh(C.googleReviewsUrl);
+const upcoming = S.festivals.slice(0, 3);
+---
+<Base
+  title="555 Holidays: Slow, Private Tours in Bhutan, Led by Locals"
+  description="Bhutan, the way locals live it. Private, unhurried Bhutan tours, festival trips and treks from a licensed, Bhutanese-owned agency in Thimphu."
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: C.name, url: Astro.site.href }]}
+>
+
+<!-- To use a looping video instead of the photo, replace the .bg <img> with
+     <video class="layer bg" autoplay muted loop playsinline poster="/images/monks-hero.jpg"><source src="..." type="video/mp4"></video>
+     and remove the .word and .fg layers. -->
+<header class="hero" id="top">
+  <img class="layer bg" src="/images/monks-hero.jpg" alt="Snow peaks of the eastern Himalaya behind dark ridges, with prayer flags on a rock" fetchpriority="high">
+  <div class="word" aria-hidden="true">Bhutan</div>
+  <img class="layer fg" src="/images/monks-hero-fg.webp" alt="" aria-hidden="true">
+  <Nav page="home" />
+  <div class="hero-copy">
+    <div>
+      <h1>Bhutan, the way locals live it</h1>
+      <p class="hsub">Slow, private journeys with a Thimphu family who'll welcome you like a friend: into farmhouses, monasteries and festival courtyards.</p>
+      <a href="#arrival" class="pill white"><span>Begin the journey</span><i set:html={I.down} /></a>
+    </div>
+    <a class="badge" href="#reviews" aria-label="Google rating and reviews"><Fragment set:html={google} /><span><span class="stars" aria-hidden="true">★</span> <b set:html={ph(C.rating)} /> · <Fragment set:html={ph(C.reviewCount)} /> Google reviews</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 01 · Arrival -->
+<section id="arrival" class="story-sec" style="padding-top:clamp(70px,8vw,120px)" aria-labelledby="arr-h">
+  <div class="wrap">
+    <div class="arrive">
+      <span class="chap rv"><b>01</b>Arrival</span>
+      <div class="arrive-text rv">
+        <h2 id="arr-h">You'll know you've arrived before you land.</h2>
+        <p>On a clear day the flight into Paro passes eight of the world's ten highest peaks. Then the wings tilt between forested ridges, and a valley of rice fields and painted farmhouses opens below. Your guide is waiting just outside. From here, we take it slowly.</p>
+        <div class="facts-inline"><span><b>8 of 10</b>highest peaks in view</span><span><b>70%+</b>of Bhutan is forest</span><span><b>250+</b>festivals every year</span></div>
+        <a class="see" href={U.post('flying-into-paro')}>Read about the flight →</a>
+      </div>
+      <figure class="arrive-photo rv">
+        <div class="frame"><img src="/images/bloom-hero.jpg" alt="Snow-capped Jomolhari above brown Himalayan ridges" loading="lazy"></div>
+        <figcaption>Jomolhari, 7,326 m, on Bhutan's border with Tibet</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · A day in Bhutan -->
+<section id="experiences" class="story-sec" aria-labelledby="day-h">
+  <div class="wrap">
+    <div class="lead rv"><span class="chap"><b>02</b>Moments to live</span><div>
+      <h2 class="h2" id="day-h">A day in Bhutan</h2>
+      <p class="intro-p" style="margin-top:14px">Days here have their own rhythm: butter tea at dawn, archery at noon, lamps lit at dusk. Here's how one might unfold. Choose the moments that speak to you, and we'll weave them into your journey.</p>
+    </div></div>
+    <div class="day" id="day">
+      {PARTS.map((p, i) => (
+        <div class="mscroll" data-part={p.key}><article class={`moment${i % 2 ? ' flip' : ''}`}>
+          <div class="m-photo rv">
+            {p.items.map((e, k) => (
+              <div class="lay" style={k ? 'clip-path:polygon(0 140%,100% 100%,100% 100%,0 100%)' : undefined}><img src={img(e.img)} alt={k === 0 ? e.title : ''} loading="lazy" decoding="async"><i class="shade"></i></div>
+            ))}
+            <span class="when"><Fragment set:html={p.icon} />{p.when}</span>
+            <span class="m-cap"><span>{p.items[0].title}</span></span>
+            <span class="m-count" aria-hidden="true"><b>1</b> / {p.items.length}</span>
+          </div>
+          <div class="m-text rv">
+            <span class="kicker">{p.kicker}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <ul class="m-list">
+              {p.items.map((e, k) => (
+                <li><button type="button" data-i={k} data-title={e.title} aria-current={k === 0 ? 'true' : 'false'}>
+                  <img src={img(e.img)} alt="" loading="lazy">
+                  <span><b>{e.title}</b><small set:html={ph(e.line)} /></span>
+                </button></li>
+              ))}
+            </ul>
+            <div class="m-progress" aria-hidden="true">{p.items.map((_, k) => <i class={k === 0 ? 'on' : ''}></i>)}</div>
+          </div>
+        </article></div>
+      ))}
+    </div>
+    <p class="day-note rv">Every moment can be added to any trip. <a href={U.contact}>Tell us which ones you'd love →</a></p>
+  </div>
+</section>
+
+<!-- 03 · Who we are -->
+<section id="why" class="story-sec" aria-labelledby="why-h">
+  <svg class="swirl" style="top:30%;height:320px" viewBox="0 0 1200 320" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 90 C120 40 220 120 300 170 C380 220 470 200 470 130 C470 60 380 40 360 100 C340 170 440 220 600 200 C780 175 900 120 1000 80 C1080 50 1150 40 1220 50"/></svg>
+  <div class="wrap z">
+    <div class="story">
+      <span class="chap rv"><b>03</b>Who we are</span>
+      <div class="text rv">
+        <h2 class="h2 sr" id="why-h">Why travel with us</h2>
+        <p>We're a small, Bhutanese-owned agency from Thimphu. Bhutan isn't our product; it's our home.</p>
+        <p>Nothing on our trips is staged. The farmhouse lunch is with a family we've known for years; at a festival you'll stand among neighbours. Most trips are just you and your companions, so we can change plans whenever a valley asks you to stay a little longer.</p>
+        <p>We hire locally, choose family-run lodges, and return part of every booking to the communities and forests that make Bhutan what it is. <a class="see" href={U.about}>Our story →</a></p>
+      </div>
+      <div class="story-photo rv">
+        <figure class="pcard"><img src="/images/rev-3.jpg" alt="Young monks in red robes sitting together on a lawn" loading="lazy"><figcaption class="cap">A morning with the novice monks</figcaption></figure>
+      </div>
+    </div>
+    <div class="numbers rv">{S.impact.map(s => <div><b set:html={ph(s.num)} /><small set:html={ph(s.label)} /></div>)}</div>
+  </div>
+</section>
+
+<!-- 04 · Your journey -->
+<section id="journeys" class="story-sec" aria-labelledby="cat-h">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="chap"><b>04</b>Your journey</span><h2 class="h2" id="cat-h">Choose the shape of your trip</h2><a class="see" href={U.tours}>All tours →</a></div>
+    <div class="cats" set:html={S.categories.map(R.cat).join('')} />
+    <div class="sub-lead rv" id="departures">
+      <div><h3>…or time it with a festival</h3><p>Masked dances, families in their finest silk, blessings for the whole valley. These are the next ones on the calendar.</p></div>
+      <a class="see" href={U.festivals}>Full festival calendar →</a>
+    </div>
+    <div class="deps" set:html={upcoming.map(R.dep).join('')} />
+  </div>
+</section>
+
+<!-- 05 · Your companions -->
+<section id="guides" class="story-sec" aria-labelledby="g-h">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="chap"><b>05</b>Your companions</span><h2 class="h2" id="g-h">The people you'll travel with</h2><a class="see" href={`${U.about}#guides`}>Meet the team →</a></div>
+    <div class="guides" set:html={S.guides.map(R.guide).join('')} />
+  </div>
+</section>
+
+<!-- 06 · In their words -->
+<section id="reviews" class="story-sec" aria-labelledby="r-h">
+  <div class="wrap">
+    <div class="revwrap rv">
+      <img src="/images/why.jpg" alt="" loading="lazy">
+      <div class="lead" style="margin-bottom:clamp(30px,3vw,48px)"><span class="chap"><b>06</b>In their words</span><h2 class="h2" id="r-h">Letters from our guests</h2></div>
+      <!-- NOTE: names come from the old website and are unverified. Replace with real reviews before launch. -->
+      <div class="revs" id="rev-grid" tabindex="0" aria-label="Guest reviews" set:html={S.reviews.map(R.review).join('')} />
+      <div class="dots" id="rev-dots" aria-hidden="true">{S.reviews.map((_, i) => <i class={i === 0 ? 'on' : ''}></i>)}</div>
+      <div class="rev-foot">
+        <span class="label" set:html={`${ph(C.rating)} average from ${ph(C.reviewCount)} reviews on Google &amp; TripAdvisor`} />
+        {reviewsLive
+          ? <a class="outline" href={C.googleReviewsUrl} target="_blank" rel="noopener">Read more reviews</a>
+          : <a class="outline" href="#">Read more reviews <Fragment set:html={ph(C.googleReviewsUrl)} /></a>}
+      </div>
+    </div>
+    <div class="trust rv" style="margin-top:clamp(40px,4vw,60px)" aria-label="Licences and memberships" set:html={R.trust()} />
+  </div>
+</section>
+
+<!-- 07 · Good to know -->
+<section id="faq" class="story-sec" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="faq-home">
+      <div class="rv"><span class="chap"><b>07</b>Good to know</span></div>
+      <div>
+        <h2 class="h2 rv" id="faq-h" style="margin-bottom:clamp(28px,3vw,44px)">Honest answers before you ask</h2>
+        <div class="acc rv" set:html={S.faq.filter(f => f.home).map((f, i) => R.qa(f, i, i === 0, 'hf')).join('')} />
+        <a class="see rv" href={U.faq} style="margin-top:22px">View all FAQs →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · Your chapter -->
+<section id="plan" class="story-sec" aria-labelledby="plan-h">
+  <div class="wrap">
+    <div class="cta-block rv">
+      <img src="/images/dest-phobjikha.jpg" alt="" loading="lazy">
+      <div>
+        <span class="chap" style="color:rgba(255,255,255,.8)"><b style="color:#9fd0ff">08</b>Your chapter</span>
+        <h2 id="plan-h" style="margin-top:14px">Get a free, no-obligation trip plan</h2>
+        <p class="intro">The rest of the story is yours to write. Tell us what draws you to Bhutan, and one of our family will reply personally with ideas, a sample route and an honest, itemised price.</p>
+        <div class="cta-btns">
+          <a class="btn btn-wa" href={waLink("Hello! I'd like a free trip plan for Bhutan.")} target="_blank" rel="noopener"><Fragment set:html={I.wa} />WhatsApp {C.phone}</a>
+          <a class="btn btn-line" href={mailLink('Free trip plan request')}><Fragment set:html={I.mail} />Email us</a>
+        </div>
+        <div class="cta-contact"><span><Fragment set:html={I.clock.replace('<svg', '<svg style="width:15px;height:15px;vertical-align:-2px;margin-right:6px"')} />{C.hours}</span><a href={`mailto:${C.email}`}>{C.email}</a></div>
+      </div>
+      <EnquiryForm title="Start your trip plan" />
+    </div>
+  </div>
+</section>
+
+</main>
+</Base>

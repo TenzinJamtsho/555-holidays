@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import { S, R, I, U, abs, img, crumbsLd } from '../lib/site.js';
+
+const events = S.festivals.filter(f => f.start).map(f => ({
+  '@context': 'https://schema.org', '@type': 'Event',
+  name: `${f.name} ${f.start.slice(0, 4)}`,
+  startDate: f.start, endDate: f.end,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: { '@type': 'Place', name: f.place, address: { '@type': 'PostalAddress', addressLocality: f.place, addressCountry: 'BT' } },
+  image: abs(img(f.img)),
+  description: `${f.name} at ${f.place}, Bhutan. Dates are tentative and follow the Bhutanese lunar calendar.`,
+  url: abs(`${U.festivals}#${f.slug}`),
+}));
+---
+<Base
+  title="Bhutan Festival Dates 2027: Tshechu Calendar | 555 Holidays"
+  description="Bhutan festival calendar 2027: Paro Tshechu (18–22 March), Punakha (13–18 February), Thimphu Tshechu (10–12 October), Jomolhari, Royal Highland Festival and more. Plan a private festival trip."
+  image="/images/pkg-festival.jpg"
+  jsonld={[...events, crumbsLd([['Home', '/'], ['Festivals', U.festivals]])]}
+>
+<PageHero img="/images/pkg-festival.jpg" alt="A masked dancer in a bright costume at the Jakar Tshechu" page="festivals" crumbs={[['Festivals']]}
+  title="Bhutan festival calendar 2027"
+  sub="More than 250 festivals take place in Bhutan each year. These are the ones we love to plan journeys around." />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <div class="callout rv"><Fragment set:html={I.warn} />
+      <div>Dates are tentative and follow the Bhutanese lunar calendar, based on the Association of Bhutanese Tour Operators and Department of Tourism list. We confirm exact dates with you before booking.</div></div>
+    <div class="deps" style="margin-top:28px" set:html={S.festivals.map(R.dep).join('')} />
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap narrow">
+    <div class="prose rv">
+      <h2>What is a tshechu?</h2>
+      <p>A tshechu is a religious festival honouring Guru Rinpoche, who brought Buddhism to Bhutan in the 8th century. For several days, monks and laypeople perform sacred masked dances in the dzong courtyard while families in their finest gho and kira gather to watch, share picnics and receive blessings.</p>
+      <p>Visitors are welcome. Dress modestly, never walk across the dance ground, and ask before photographing people. The big festivals in Paro and Thimphu fill up early, so book about six months ahead. <a href={U.post('bhutan-festival-guide')}>Read our first-timer's guide to tshechus →</a></p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="cta-block rv">
+      <img src="/images/dest-paro.jpg" alt="" loading="lazy">
+      <div><h2>Plan a festival journey</h2><p class="intro">Tell us which festival you'd like to see, and we'll build a private trip around it, with time to rest between the crowds.</p></div>
+      <EnquiryForm title="Plan a festival trip" />
+    </div>
+  </div>
+</section>
+</main>
+</Base>

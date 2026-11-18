@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { S, R, U, img, crumbsLd } from '../../lib/site.js';
+
+const [f, ...rest] = S.posts;
+const cats = [...new Set(rest.map(p => p.cat))];
+---
+<Base
+  title="Bhutan Travel Journal: Stories, Guides & Tips | 555 Holidays"
+  description="Stories and practical guides from our team in Thimphu: why visit Bhutan, festivals, Gross National Happiness, flying into Paro, the best time to visit, sustainable travel and more."
+  image="/images/gal-2.jpg"
+  jsonld={[crumbsLd([['Home', '/'], ['Journal', U.journal]])]}
+>
+<PageHero img="/images/gal-2.jpg" alt="Tall white prayer flags in a valley" page="journal" crumbs={[['Journal']]}
+  title="Letters from Bhutan"
+  sub="Stories, seasons and practical notes from our team in Thimphu." />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <article class="feature-post rv">
+      <a class="pcard" href={U.post(f.slug)} aria-label={f.title}><img src={img(f.img)} alt=""></a>
+      <div>
+        <div class="post-meta"><span class="chip blue">{f.cat}</span>{f.mins} min read</div>
+        <h2><a href={U.post(f.slug)}>{f.title}</a></h2><p>{f.excerpt}</p>
+        <a class="pill" href={U.post(f.slug)} style="margin-top:20px"><span>Read the story</span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M8 7h9v9"/></svg></i></a>
+      </div>
+    </article>
+    <div class="filters rv" data-filters="#posts" role="group" aria-label="Filter by topic">
+      <button aria-pressed="true" data-f="all">All</button>
+      {cats.map(c => <button aria-pressed="false" data-f={c}>{c}</button>)}
+    </div>
+    <div class="posts" id="posts" set:html={rest.map(R.post).join('')} />
+  </div>
+</section>
+</main>
+</Base>

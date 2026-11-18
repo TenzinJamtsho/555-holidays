@@ -1,0 +1,11 @@
+# Old page addresses -> new ones (Cloudflare Pages / Netlify)
+/index.html          /                301
+/tours.html          /tours/          301
+/tour.html           /tours/          301
+/travel-info.html    /travel-info/    301
+/faq.html            /faq/            301
+/blog.html           /journal/        301
+/post.html           /journal/        301
+/about.html          /about/          301
+/guide.html          /about/#guides   301
+/contact.html        /contact/        301

@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { S, R, I, U, plain, waLink, mailLink, crumbsLd } from '../lib/site.js';
+
+const slug = s => s.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const groups = [...new Set(S.faq.map(f => f.group))].map(g => ({ name: g, id: slug(g), items: S.faq.map((f, i) => ({ f, i })).filter(x => x.f.group === g) }));
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: S.faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: plain(f.a) } })),
+};
+---
+<Base
+  title="Bhutan Travel FAQ: Cost, Visa, SDF, Guides & Safety | 555 Holidays"
+  description="Honest answers about travelling in Bhutan: what a trip costs, the SDF, visas, whether you need a tour operator or guide, cancellation, the best time to visit, money, phones and safety."
+  image="/images/about-2.jpg"
+  jsonld={[faqLd, crumbsLd([['Home', '/'], ['FAQ', U.faq]])]}
+>
+<PageHero img="/images/about-2.jpg" alt="The 108 chortens at Dochula Pass" page="faq" crumbs={[['FAQ']]}
+  title="Bhutan travel questions, honestly answered"
+  sub="Including the one everyone wonders about: what a trip to Bhutan really costs." />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap narrow">
+    <label class="fld rv" style="max-width:520px;margin-bottom:30px"><span>Search the FAQ</span><input id="faq-search" type="search" placeholder="e.g. visa, cost, cancel, food" autocomplete="off"></label>
+    <div class="filters rv" role="navigation" aria-label="Jump to topic">
+      {groups.map(g => <a class="chip line" style="padding:8px 16px;font-size:13.5px" href={`#${g.id}`}>{g.name}</a>)}
+    </div>
+    {groups.map(g => (
+      <div class="tgroup faq-group" id={g.id}>
+        <h2 class="h3 rv" style="margin-bottom:18px">{g.name}</h2>
+        <div class="acc" set:html={g.items.map(({ f, i }) => R.qa(f, i, false, 'f')).join('')} />
+      </div>
+    ))}
+    <p id="faq-none" class="muted" hidden>No questions match that search. <a class="see" href={U.contact}>Ask us directly →</a></p>
+  </div>
+</section>
+
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap narrow">
+    <div class="cta-block rv" style="grid-template-columns:1fr">
+      <img src="/images/dest-paro.jpg" alt="" loading="lazy">
+      <div>
+        <h2>Still wondering about something?</h2>
+        <p class="intro">Message us. A real person from our Thimphu team will answer, usually within <mark class="ph">[XX]</mark> hours.</p>
+        <div class="cta-btns">
+          <a class="btn btn-wa" href={waLink('Hello! I have a question about travelling in Bhutan.')} target="_blank" rel="noopener"><Fragment set:html={I.wa} />WhatsApp us</a>
+          <a class="btn btn-line" href={mailLink('Question about Bhutan')}><Fragment set:html={I.mail} />Email us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</Base>

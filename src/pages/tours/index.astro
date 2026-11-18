@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import EnquiryForm from '../../components/EnquiryForm.astro';
+import { S, R, I, U, abs, crumbsLd, plain } from '../../lib/site.js';
+
+const INTRO = {
+  cultural: 'Dzongs, monasteries and village life, at a pace that leaves time for conversation.',
+  festival: "Tshechu festivals follow the lunar calendar. We'll match a festival to your dates and build the rest of the journey around it.",
+  trek: 'From a single night under the stars to two weeks in the high country. All camping gear, cooks and pack animals are arranged.',
+};
+const groups = S.categories.map(c => ({ ...c, tours: S.tours.filter(t => t.cat === c.key) }));
+const listLd = {
+  '@context': 'https://schema.org', '@type': 'ItemList', name: 'Bhutan tours by 555 Holidays',
+  itemListElement: S.tours.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(U.tour(t.slug)), name: t.name })),
+};
+---
+<Base
+  title="Bhutan Tour Packages: Cultural, Festival & Trekking Tours | 555 Holidays"
+  description="Private Bhutan tour packages from 2 to 15 days: cultural tours of Paro, Thimphu, Punakha and Bumthang, tshechu festival trips and Himalayan treks. Every trip is tailor-made."
+  image="/images/pkg-trek.jpg"
+  jsonld={[listLd, crumbsLd([['Home', '/'], ['Tours', U.tours]])]}
+>
+<PageHero img="/images/pkg-trek.jpg" alt="Snow-capped Jomolhari above brown Himalayan ridges" page="tours" crumbs={[['Tours']]}
+  title="Bhutan tours, at your own pace"
+  sub="Every trip is private and planned around you. Use these as starting points, then let's shape the route, pace and experiences together." />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <div class="filters rv" data-filters="#groups" data-hash role="group" aria-label="Filter tours">
+      <button aria-pressed="true" data-f="all">All journeys</button>
+      {groups.map(g => <button aria-pressed="false" data-f={g.key}>{g.name}</button>)}
+    </div>
+    <div id="groups">
+      {groups.map(g => (
+        <div class="tgroup" id={g.key} data-cat={g.key}>
+          <div class="tgroup-head rv"><div><h2 class="h2">{g.name} tours in Bhutan</h2><p>{INTRO[g.key]}</p></div><span class="label">{g.tours.length} journeys</span></div>
+          <div class="tcards" set:html={g.tours.map(R.tour).join('')} />
+          {g.key === 'festival' && <p style="margin-top:22px"><a class="see" href={U.festivals}>See all festival dates for 2027 →</a></p>}
+        </div>
+      ))}
+    </div>
+    <div class="callout blue rv"><Fragment set:html={I.info} />
+      <div>Wondering about cost? We explain exactly what a day in Bhutan costs, including the Sustainable Development Fee, in our <a href={`${U.faq}#planning-cost`} style="text-decoration:underline">FAQ</a> and <a href={`${U.info}#costs`} style="text-decoration:underline">travel info</a>.</div></div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(40px,4vw,70px)">
+  <div class="wrap">
+    <div class="cta-block rv">
+      <img src="/images/dest-paro.jpg" alt="" loading="lazy">
+      <div><h2>Don't see quite the right trip?</h2><p class="intro">Most of our guests end up with something tailor-made. Tell us your dates and what you love, and we'll suggest a route.</p></div>
+      <EnquiryForm title="Plan a tailor-made journey" />
+    </div>
+  </div>
+</section>
+</main>
+</Base>

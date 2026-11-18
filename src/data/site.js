@@ -1,15 +1,15 @@
 /* =====================================================================
-   555 Holidays — site data
+   555 Holidays — site data (imported by every Astro page at build time)
    This file plays the role of data/tours.ts, data/festivals.ts and
    data/guides.ts. Edit content here; every page reads from it.
    Anything in [SQUARE BRACKETS] is a placeholder the agency must fill in.
    The site highlights placeholders in yellow so they are easy to spot.
    ===================================================================== */
-window.SITE = {
+export const SITE = {
 
   company: {
     name: "555 Holidays",
-    domain: "bhutantourinfo.com",
+    domain: "555holidays.com",
     email: "info@bhutantourinfo.com",
     phone: "+975 17300392",
     whatsapp: "97517300392",
@@ -162,15 +162,15 @@ window.SITE = {
      Festival dates follow the lunar calendar. Replace [DATES] with the
      official calendar for the year. "usual" is the usual season only.   */
   festivals: [
-    { name: "Trongsa Tshechu", place: "Trongsa Dzong", usual: "December – January", dates: "[DEC 2026 / JAN 2027 DATES]", days: "Tailor-made", tour: null, img: "gal-4", group: "Private" },
-    { name: "Punakha Drubchen & Tshechu", place: "Punakha Dzong", usual: "February – March", dates: "13 – 18 Feb 2027", days: "7 days", tour: "punakha-festival-tour", img: "dest-punakha", group: "Private" },
-    { name: "Paro Tshechu", place: "Rinpung Dzong, Paro", usual: "March – April", dates: "18 – 22 Mar 2027", days: "10 days", tour: "paro-festival-tour", img: "rev-2", group: "Private" },
-    { name: "Rhododendron Festival", place: "Lamperi Botanical Park, near Dochula", usual: "April", dates: "22 – 23 Apr 2027", days: "Tailor-made", tour: null, img: "fest-rhodo", group: "Private" },
-    { name: "Ura Yakchoe", place: "Ura, Bumthang", usual: "April – May", dates: "18 – 22 Apr 2027", days: "Tailor-made", tour: null, img: "dest-bumthang", group: "Private" },
-    { name: "Nimalung Tshechu", place: "Chhume, Bumthang", usual: "June – July", dates: "12 – 14 Jun 2027", days: "11 days", tour: "nimalung-festival-tour", img: "pkg-cultural", group: "Private" },
-    { name: "Thimphu Tshechu", place: "Tashichho Dzong, Thimphu", usual: "September – October", dates: "10 – 12 Oct 2027", days: "8 days", tour: "thimphu-festival-tour", img: "pkg-festival", group: "[SMALL GROUP · MAX X] or Private" },
-    { name: "Jomolhari Mountain Festival", place: "Dangochong, Jigme Dorji National Park", usual: "Mid-October", dates: "14 – 15 Oct 2027", days: "Highland journey · tailor-made", tour: null, img: "gal-1", group: "Private" },
-    { name: "Royal Highland Festival", place: "Laya, Gasa", usual: "Late October", dates: "23 – 24 Oct [CONFIRM 2027]", days: "Highland journey · tailor-made", tour: null, img: "fest-laya", group: "Private" }
+    { slug: "trongsa-tshechu", name: "Trongsa Tshechu", place: "Trongsa Dzong", usual: "December – January", dates: "[DEC 2026 / JAN 2027 DATES]", days: "Tailor-made", tour: null, img: "gal-4", group: "Private" },
+    { slug: "punakha-drubchen-tshechu", name: "Punakha Drubchen & Tshechu", start: "2027-02-13", end: "2027-02-18", place: "Punakha Dzong", usual: "February – March", dates: "13 – 18 Feb 2027", days: "7 days", tour: "punakha-festival-tour", img: "dest-punakha", group: "Private" },
+    { slug: "paro-tshechu", name: "Paro Tshechu", start: "2027-03-18", end: "2027-03-22", place: "Rinpung Dzong, Paro", usual: "March – April", dates: "18 – 22 Mar 2027", days: "10 days", tour: "paro-festival-tour", img: "rev-2", group: "Private" },
+    { slug: "rhododendron-festival", name: "Rhododendron Festival", start: "2027-04-22", end: "2027-04-23", place: "Lamperi Botanical Park, near Dochula", usual: "April", dates: "22 – 23 Apr 2027", days: "Tailor-made", tour: null, img: "fest-rhodo", group: "Private" },
+    { slug: "ura-yakchoe", name: "Ura Yakchoe", start: "2027-04-18", end: "2027-04-22", place: "Ura, Bumthang", usual: "April – May", dates: "18 – 22 Apr 2027", days: "Tailor-made", tour: null, img: "dest-bumthang", group: "Private" },
+    { slug: "nimalung-tshechu", name: "Nimalung Tshechu", start: "2027-06-12", end: "2027-06-14", place: "Chhume, Bumthang", usual: "June – July", dates: "12 – 14 Jun 2027", days: "11 days", tour: "nimalung-festival-tour", img: "pkg-cultural", group: "Private" },
+    { slug: "thimphu-tshechu", name: "Thimphu Tshechu", start: "2027-10-10", end: "2027-10-12", place: "Tashichho Dzong, Thimphu", usual: "September – October", dates: "10 – 12 Oct 2027", days: "8 days", tour: "thimphu-festival-tour", img: "pkg-festival", group: "[SMALL GROUP · MAX X] or Private" },
+    { slug: "jomolhari-mountain-festival", name: "Jomolhari Mountain Festival", start: "2027-10-14", end: "2027-10-15", place: "Dangochong, Jigme Dorji National Park", usual: "Mid-October", dates: "14 – 15 Oct 2027", days: "Highland journey · tailor-made", tour: null, img: "gal-1", group: "Private" },
+    { slug: "royal-highland-festival", name: "Royal Highland Festival", place: "Laya, Gasa", usual: "Late October", dates: "23 – 24 Oct [CONFIRM 2027]", days: "Highland journey · tailor-made", tour: null, img: "fest-laya", group: "Private" }
   ],
 
   /* ---------- Guides (data/guides.ts) ---------- */

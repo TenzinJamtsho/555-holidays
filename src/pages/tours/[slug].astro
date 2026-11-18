@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import EnquiryForm from '../../components/EnquiryForm.astro';
+import { S, C, R, I, U, ph, img, abs, plain, waLink, crumbsLd, CAT_LABEL } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return S.tours.map(t => ({ params: { slug: t.slug }, props: { t } }));
+}
+const { t } = Astro.props;
+const style = { cultural: 'Cultural journey', festival: 'Festival journey', trek: 'Trek' }[t.cat];
+const length = `${t.days} days${t.nights ? ' / ' + t.nights + ' nights' : ''}`;
+const summary = plain(t.summary);
+const related = S.tours.filter(x => x.cat === t.cat && x.slug !== t.slug).slice(0, 3);
+const INCLUDED = ['Sustainable Development Fee (SDF)', 'All accommodation', 'All meals and mineral water', 'Licensed English-speaking guide', 'Private vehicle and driver', 'Visa processing'];
+const EXCLUDED = ['International airfare', 'Visa fee (USD 40)', 'Alcohol and drinks', 'Museum and monument entry fees', 'Travel insurance', 'Tips, laundry, souvenirs and personal expenses'];
+
+const tripLd = {
+  '@context': 'https://schema.org', '@type': 'TouristTrip',
+  name: t.name,
+  description: summary || `A private ${t.days}-day ${style.toLowerCase()} in Bhutan.`,
+  url: abs(U.tour(t.slug)), image: abs(img(t.img)),
+  touristType: CAT_LABEL[t.cat],
+  provider: { '@id': Astro.site.origin + '/#agency' },
+  ...(t.itinerary ? { itinerary: { '@type': 'ItemList', itemListElement: t.itinerary.map((d, i) => ({ '@type': 'ListItem', position: i + 1, name: `Day ${i + 1}: ${d.t}`, description: d.d })) } } : {}),
+};
+---
+<Base
+  title={`${t.name}: ${t.days}-Day ${style} in Bhutan | 555 Holidays`}
+  description={summary ? `${summary.slice(0, 150)}${summary.length > 150 ? '…' : ''}` : `${t.name}, a private ${t.days}-day ${style.toLowerCase()} in ${t.region}, Bhutan. Fully arranged by local guides.`}
+  image={img(t.img)}
+  jsonld={[tripLd, crumbsLd([['Home', '/'], ['Tours', U.tours], [t.name, U.tour(t.slug)]])]}
+>
+<PageHero img={img(t.img)} page="tours" crumbs={[['Tours', U.tours], [t.name]]} title={t.name} sub={`${length} · ${t.region}`} />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <div class="tour-layout">
+      <div>
+        <div class="facts rv">
+          <div class="fact"><small>Duration</small><b>{length}</b></div>
+          <div class="fact"><small>Style</small><b>{style}</b></div>
+          <div class="fact"><small>Start &amp; end</small><b>Paro International Airport</b></div>
+          <div class="fact"><small>{t.grade ? 'Trek grade' : 'Group'}</small><b set:html={t.grade ? ph(t.grade) : 'Private · any size'} /></div>
+        </div>
+        <div class="prose rv">
+          <h2>Overview</h2>
+          <p set:html={ph(t.summary)} />
+          <h2>Highlights</h2>
+          <ul class="ticks">{t.highlights.map(h => <li set:html={ph(h)} />)}</ul>
+          <h2>Day by day</h2>
+          {t.itinerary
+            ? <ol class="timeline">{t.itinerary.map((d, i) => (
+                <li><span class="d">Day {i + 1}</span><h3>{d.t}</h3><p>{d.d}</p>{d.o && <div class="o">Overnight: {d.o}</div>}</li>
+              ))}</ol>
+            : <p><Fragment set:html={ph('[DAY-BY-DAY ITINERARY]')} /> We'll send a full day-by-day plan with your quote, shaped around your dates.</p>}
+          <h2>What's included</h2>
+          <ul class="ticks">{INCLUDED.map(x => <li>{x}</li>)}</ul>
+          <h2>Not included</h2>
+          <ul class="ticks no">{EXCLUDED.map(x => <li>{x}</li>)}</ul>
+        </div>
+      </div>
+      <aside class="side">
+        <div class="box">
+          <h3>Make this journey yours</h3>
+          <p>Every departure is private and customisable: dates, pace, hotels and experiences. Ask us for an itemised quote.</p>
+          <a class="btn btn-blue" href="#enquire">Get a free trip plan</a>
+          <a class="btn btn-wa" href={waLink(`Hello! I'm interested in the ${t.name} (${t.days} days).`)} target="_blank" rel="noopener" style="margin-top:8px"><Fragment set:html={I.wa} />WhatsApp us</a>
+        </div>
+        <div class="box">
+          <h3>What a day costs</h3>
+          <p>Most trips run about <mark class="ph">[USD ___–___]</mark> per person per day, all-inclusive of the SDF, hotels, meals, guide and transport.</p>
+          <a class="see" href={`${U.faq}#planning-cost`}>How pricing works →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="enquire" style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="cta-block rv">
+      <img src="/images/dest-phobjikha.jpg" alt="" loading="lazy">
+      <div><h2>Shape this journey with us</h2><p class="intro">Tell us when you'd like to travel and what matters most. We'll reply personally with a tailored plan and price.</p></div>
+      <EnquiryForm title="Request this journey" tour={t.name} />
+    </div>
+  </div>
+</section>
+
+{related.length > 0 && (
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="label">You might also like</span><h2 class="h2">Related journeys</h2><a class="see" href={U.tours}>All tours →</a></div>
+    <div class="tcards" set:html={related.map(R.tour).join('')} />
+  </div>
+</section>
+)}
+</main>
+</Base>

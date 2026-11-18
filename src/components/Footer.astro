@@ -1,0 +1,52 @@
+---
+import { S, C, I, U, esc, ph, waLink } from '../lib/site.js';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <img src="/images/gal-1.jpg" alt="" loading="lazy">
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <a href="/" class="brand"><Fragment set:html={I.logo} />{C.name}</a>
+        <p>A small, Bhutanese-owned travel agency in Thimphu, planning slow, unhurried journeys through the Land of the Thunder Dragon.</p>
+        <a class="c" href={waLink()} target="_blank" rel="noopener"><Fragment set:html={I.wa} />WhatsApp {C.phone}</a>
+        <a class="c" href={`mailto:${C.email}`}><Fragment set:html={I.mail} />{C.email}</a>
+        <span class="c"><Fragment set:html={I.pin} />{C.address}</span>
+        <span class="c"><Fragment set:html={I.clock} />Mon – Sat, 9 AM – 6 PM</span>
+        <span class="c"><Fragment set:html={I.globe} />Offices in Thimphu · Washington, DC · Panvel, India</span>
+        <div class="soc">
+          <a href={C.instagram} target="_blank" rel="noopener" aria-label="Instagram"><Fragment set:html={I.insta} /></a>
+          <a href={waLink()} target="_blank" rel="noopener" aria-label="WhatsApp"><Fragment set:html={I.wa} /></a>
+          <a href={`mailto:${C.email}`} aria-label="Email"><Fragment set:html={I.mail} /></a>
+        </div>
+      </div>
+      <div><h4>Explore</h4><ul>
+        <li><a href={`${U.tours}#cultural`}>Cultural tours</a></li>
+        <li><a href={`${U.tours}#trek`}>Treks</a></li>
+        <li><a href={U.festivals}>Festival calendar</a></li>
+        <li><a href="/#experiences">Moments to live</a></li>
+        <li><a href={`${U.about}#guides`}>Our guides</a></li>
+      </ul></div>
+      <div><h4>Plan</h4><ul>
+        <li><a href={U.info}>Travel info</a></li>
+        <li><a href={`${U.info}#visa`}>Visa &amp; entry</a></li>
+        <li><a href={`${U.info}#costs`}>Costs &amp; SDF</a></li>
+        <li><a href={U.faq}>FAQ</a></li>
+        <li><a href={U.journal}>Journal</a></li>
+      </ul></div>
+      <div>
+        <h4>Letters from Bhutan</h4>
+        <form class="sub" data-newsletter><label class="sr" for="nl-email">Email address</label><input id="nl-email" type="email" name="email" placeholder="Email address" required><button type="submit" aria-label="Subscribe"><Fragment set:html={I.right} /></button></form>
+        <p class="fsmall">Festival dates, seasonal notes and stories from our valley. Only a few emails a year.</p>
+        <div class="fmsg" role="status"></div>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© {year} {C.name} · {C.domain} · Licence <Fragment set:html={ph(C.licence)} /></span>
+      <span><a href={`${U.faq}#planning-cost`}>Terms &amp; Conditions <Fragment set:html={ph('[ADD PAGE]')} /></a> | <a href="#">Privacy Policy <Fragment set:html={ph('[ADD PAGE]')} /></a></span>
+    </div>
+    <details class="credits"><summary>Photo credits</summary><ul>
+      {S.credits.map(c => <li>{c[0]}: <a href={`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(c[3])}`} target="_blank" rel="noopener">{c[1]}</a>, {c[2]}</li>)}
+    </ul></details>
+  </div>
+</footer>

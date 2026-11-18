@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import { C, R, I, U, waLink, crumbsLd } from '../lib/site.js';
+
+const map = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(C.address);
+const CARDS = [
+  [waLink("Hello! I'd like a free trip plan for Bhutan."), I.wa, 'WhatsApp', C.phone + ' · usually the fastest way to reach us', true],
+  ['mailto:' + C.email, I.mail, 'Email', C.email],
+  ['tel:' + C.phone.replace(/[^+\d]/g, ''), I.phone, 'Phone', C.phone],
+  [map, I.pin, 'Visit us in Thimphu', C.address, true],
+  [null, I.clock, 'Office hours', C.hours],
+  [C.instagram, I.insta, 'Instagram', '@bhutantourinfo', true],
+];
+---
+<Base
+  title="Contact 555 Holidays: Get a Free Bhutan Trip Plan"
+  description={`Get a free, no-obligation trip plan for Bhutan. WhatsApp ${C.phone}, email ${C.email}, or visit our offices in Thimphu, Washington DC or India.`}
+  image="/images/dest-paro.jpg"
+  jsonld={[crumbsLd([['Home', '/'], ['Contact', U.contact]])]}
+>
+<PageHero img="/images/dest-paro.jpg" alt="Rinpung Dzong in the Paro valley" page="contact" crumbs={[['Contact']]}
+  title="Let's plan your journey"
+  sub="A free, no-obligation trip plan, from our family in Thimphu to you." />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <div class="contact-grid">
+      <EnquiryForm title="Get a free trip plan" class="rv" />
+      <div class="ccards rv">
+        {CARDS.map(([href, ic, t, s, ext]) => href
+          ? <a class="ccard" href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}><span class="ic" set:html={ic} /><span><b>{t}</b><span>{s}</span></span></a>
+          : <div class="ccard"><span class="ic" set:html={ic} /><span><b>{t}</b><span>{s}</span></span></div>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offices" style="padding-top:clamp(60px,6vw,100px)" aria-labelledby="off-h">
+  <div class="wrap">
+    <div class="lead rv"><span class="label">Where to find us</span><h2 class="h2" id="off-h">Our offices</h2></div>
+    <div class="offices" set:html={C.offices.map(R.office).join('')} />
+  </div>
+</section>
+</main>
+</Base>

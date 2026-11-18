@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { S, R, I, U, esc, ph, isPh, plain, waLink, crumbsLd } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return S.guides.map(g => ({ params: { slug: g.slug }, props: { g } }));
+}
+const { g } = Astro.props;
+const named = !isPh(g.name);
+const display = named ? g.name : 'Meet your guide';
+const tours = S.tours.filter(t => g.cats.includes(t.cat)).slice(0, 3);
+const others = S.guides.filter(x => x.slug !== g.slug);
+const personLd = named ? [{ '@context': 'https://schema.org', '@type': 'Person', name: g.name, jobTitle: `${plain(g.speciality)} guide`, worksFor: { '@id': Astro.site.origin + '/#agency' } }] : [];
+---
+<Base
+  title={`${display}: ${plain(g.speciality)} guide in Bhutan | 555 Holidays`}
+  description={`${named ? g.name : 'One of our local guides'}, a ${plain(g.speciality).toLowerCase()} guide with 555 Holidays in Bhutan.`}
+  image="/images/why.jpg"
+  jsonld={[...personLd, crumbsLd([['Home', '/'], ['Guides', `${U.about}#guides`], [display, U.guide(g.slug)]])]}
+>
+<PageHero img="/images/why.jpg" page="about" short crumbs={[['Guides', `${U.about}#guides`], [ph(g.name)]]} title={ph(g.name)} />
+
+<main id="main">
+<section style="padding-top:clamp(50px,5vw,80px)">
+  <div class="wrap">
+    <div class="gprofile">
+      <div class="gphoto rv" set:html={isPh(g.photo) ? I.person + ph(g.photo) : `<img src="${esc(g.photo)}" alt="Portrait of ${esc(g.name)}">`} />
+      <div class="rv">
+        <span class="chip blue" set:html={ph(g.speciality)} />
+        <p class="h3" style="margin:18px 0 0;font-style:italic" set:html={`“${ph(g.line)}”`} />
+        <div class="gfacts">
+          <div class="fact"><small>Guiding for</small><b set:html={`${ph(g.years)} years`} /></div>
+          <div class="fact"><small>Languages</small><b set:html={ph(g.languages)} /></div>
+          <div class="fact"><small>From</small><b set:html={ph(g.from)} /></div>
+        </div>
+        <div class="prose">
+          <h2>In their own words</h2><p set:html={ph(g.bio)} />
+          <h2>Favourite place in Bhutan</h2><p set:html={ph(g.favourite)} />
+        </div>
+        <div class="cta-btns" style="margin-top:24px">
+          <a class="btn btn-blue" href={U.contact}>Plan a trip together</a>
+          <a class="btn btn-wa" href={waLink(`Hello! I'd like to travel with one of your ${plain(g.speciality).toLowerCase()} guides.`)} target="_blank" rel="noopener"><Fragment set:html={I.wa} />WhatsApp us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="label">Journeys they lead</span><h2 class="h2">Travel together</h2><a class="see" href={U.tours}>All tours →</a></div>
+    <div class="tcards" set:html={tours.map(R.tour).join('')} />
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead rv"><span class="label">The rest of the team</span><h2 class="h2">More of our guides</h2></div>
+    <div class="guides" set:html={others.map(R.guide).join('')} />
+  </div>
+</section>
+</main>
+</Base>

@@ -1,0 +1,29 @@
+---
+/* Trip-plan enquiry form. Sent by the form service (FORM_ENDPOINT) when set,
+   otherwise via WhatsApp or the visitor's email app. Logic: public/assets/js/ui.js */
+import { I, ph } from '../lib/site.js';
+interface Props { title?: string; tour?: string; class?: string }
+const { title = 'Tell us a little about your trip', tour, class: cls = '' } = Astro.props;
+const uid = 'f' + Math.random().toString(36).slice(2, 7);
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const INTERESTS = ['Culture & dzongs', 'Festivals', 'Trekking', 'Food & farm stays', 'Spiritual', 'Nature & wildlife', 'Crafts', 'Photography'];
+const PEOPLE = ['1', '2', '3', '4', '5', '6', '7–10', '10+'];
+---
+<form class={`eform ${cls}`} data-enquiry data-tour={tour} novalidate>
+  <h3>{title}</h3>
+  {tour && <input type="hidden" name="tour" value={tour}>}
+  <label class="fld"><span>Your name</span><input name="name" autocomplete="name" required></label>
+  <label class="fld"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+  <label class="fld"><span>Travel month</span><select name="month"><option value="">Not sure yet</option>{MONTHS.map(m => <option>{m}</option>)}</select></label>
+  <label class="fld"><span>Number of travellers</span><select name="travellers">{PEOPLE.map(n => <option selected={n === '2'}>{n}</option>)}</select></label>
+  <fieldset class="interests"><legend>What draws you to Bhutan?</legend><div class="opts">
+    {INTERESTS.map((x, i) => <label><input type="checkbox" name="interests" value={x} id={`${uid}i${i}`}><span>{x}</span></label>)}
+  </div></fieldset>
+  <label class="fld full"><span>Anything else? <span class="muted" style="font-weight:400">(optional)</span></span><textarea name="message" placeholder="Dates, pace, special occasions, dietary needs…"></textarea></label>
+  <div class="form-actions">
+    <button class="btn btn-wa" type="submit" value="whatsapp"><Fragment set:html={I.wa} />Send on WhatsApp</button>
+    <button class="btn btn-dark" type="submit" value="email"><Fragment set:html={I.mail} />Send by email</button>
+  </div>
+  <div class="form-msg" role="status"></div>
+  <p class="form-fine" set:html={ph('Free and no-obligation. We reply personally, usually within [XX] hours.')} />
+</form>

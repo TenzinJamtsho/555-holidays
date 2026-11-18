@@ -1,0 +1,18 @@
+---
+/* Inner-page hero: photo, navigation, breadcrumb, title and intro */
+import Nav from './Nav.astro';
+interface Props { img: string; alt?: string; title: string; sub?: string; crumbs?: [string, string?][]; page?: string; short?: boolean }
+const { img, alt = '', title, sub, crumbs = [], page, short = false } = Astro.props;
+---
+<header class="phero" style={short ? 'height:clamp(300px,42vh,420px)' : undefined}>
+  <img src={img} alt={alt} fetchpriority="high">
+  <Nav page={page} />
+  <div class="copy">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      {crumbs.map(([name, href]) => <><span>/</span>{href ? <a href={href}>{name}</a> : <span set:html={name} />}</>)}
+    </nav>
+    <h1 set:html={title} />
+    {sub && <p set:html={sub} />}
+  </div>
+</header>

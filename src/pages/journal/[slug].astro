@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { S, C, R, I, U, img, abs, phHtml, crumbsLd } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return S.posts.map(p => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const more = S.posts.filter(x => x.slug !== p.slug).slice(0, 3);
+const postLd = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting',
+  headline: p.title, description: p.excerpt, image: abs(img(p.img)),
+  mainEntityOfPage: abs(U.post(p.slug)),
+  author: { '@type': 'Organization', name: C.name },
+  publisher: { '@id': Astro.site.origin + '/#agency' },
+};
+---
+<Base
+  title={`${p.title} | 555 Holidays Journal`}
+  description={p.excerpt}
+  image={img(p.img)}
+  type="article"
+  jsonld={[postLd, crumbsLd([['Home', '/'], ['Journal', U.journal], [p.title, U.post(p.slug)]])]}
+>
+<PageHero img={img(p.img)} page="journal" crumbs={[['Journal', U.journal], [p.cat]]} title={p.title} />
+
+<main id="main">
+<section style="padding-top:clamp(40px,4vw,70px)">
+  <div class="wrap">
+    <article class="article rv">
+      <div class="byline"><span class="chip blue">{p.cat}</span><span>By the 555 Holidays team, Thimphu</span><span>·</span><span>{p.mins} min read</span></div>
+      <div class="prose" set:html={phHtml(p.body)} />
+      <div class="callout blue" style="margin-top:30px"><Fragment set:html={I.info} />
+        <div>Thinking about a trip? <a href={U.contact} style="text-decoration:underline">Get a free, no-obligation trip plan</a> from our team in Thimphu.</div></div>
+    </article>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="label">Keep reading</span><h2 class="h2">More from the journal</h2><a class="see" href={U.journal}>All stories →</a></div>
+    <div class="posts" set:html={more.map(R.post).join('')} />
+  </div>
+</section>
+</main>
+</Base>

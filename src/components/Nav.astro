@@ -1,0 +1,24 @@
+---
+import { C, I, U } from '../lib/site.js';
+const { page = '' } = Astro.props;
+const LINKS = [
+  [U.home, 'Home', 'home'],
+  [U.tours, 'Tours', 'tours'],
+  [U.festivals, 'Festivals', 'festivals'],
+  [U.info, 'Travel Info', 'info'],
+  [U.journal, 'Journal', 'journal'],
+  [U.faq, 'FAQ', 'faq'],
+  [U.about, 'About', 'about'],
+  [U.contact, 'Contact', 'contact'],
+];
+---
+<div class="hnav">
+  <a href="/" class="brand" aria-label={`${C.name} home`}><Fragment set:html={I.logo} />{C.name}</a>
+  <nav id="site-nav" aria-label="Main">
+    {LINKS.map(([href, text, key]) => <a href={href} aria-current={key === page ? 'page' : undefined}>{text}</a>)}
+  </nav>
+  <div class="nav-r">
+    <a href={U.contact} class="getstarted">Plan a Trip</a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</div>
