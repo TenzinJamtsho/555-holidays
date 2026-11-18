@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import EnquiryForm from '../components/EnquiryForm.astro';
+import DiyBand from '../components/DiyBand.astro';
 import { S, C, R, I, U, esc, ph, img, waLink, mailLink, isPh } from '../lib/site.js';
 
 const sun = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">${d}</svg>`;
@@ -127,8 +128,9 @@ const upcoming = S.festivals.slice(0, 3);
 <!-- 04 · Your journey -->
 <section id="journeys" class="story-sec" aria-labelledby="cat-h">
   <div class="wrap">
-    <div class="lead with-link rv"><span class="chap"><b>04</b>Your journey</span><h2 class="h2" id="cat-h">Choose the shape of your trip</h2><a class="see" href={U.tours}>All tours →</a></div>
-    <div class="cats" set:html={S.categories.map(R.cat).join('')} />
+    <div class="lead with-link rv"><span class="chap"><b>04</b>Your journey</span><h2 class="h2" id="cat-h">Three ways to travel slowly</h2><a class="see" href={U.tours}>All tours →</a></div>
+    <div class="sigs" set:html={S.signatures.map((t, i) => R.sig(t, i)).join('')} />
+    <DiyBand />
     <div class="sub-lead rv" id="departures">
       <div><h3>…or time it with a festival</h3><p>Masked dances, families in their finest silk, blessings for the whole valley. These are the next ones on the calendar.</p></div>
       <a class="see" href={U.festivals}>Full festival calendar →</a>

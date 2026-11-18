@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { S, R, I, U, img, ph, crumbsLd } from '../lib/site.js';
+
+const P = S.planner;
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DAYS = Array.from({ length: 12 }, (_, i) => i + 5);
+const PEOPLE = ['1', '2', '3', '4', '5', '6', '7–10', '10+'];
+const PACES = [
+  ['Gentle', 'Late starts, rest afternoons, extra nights to linger.'],
+  ['Balanced', 'One main outing a day, with free time in between.'],
+  ['Active', 'Longer hikes and fuller days, still no rushing between valleys.'],
+];
+const STAYS = [
+  ['Homestays & farmhouses', 'Family homes, home-cooked meals'],
+  ['Boutique lodges', 'Small, characterful, locally run'],
+  ['Luxury', 'Five-star retreats in the valleys'],
+  ['A mix', 'A little of each'],
+];
+const data = {
+  valleys: P.valleys, paroNights: P.paroNights, trekNights: P.trekNights,
+  signatures: Object.fromEntries(S.signatures.map(s => [s.slug, { name: s.name, days: s.days, pace: s.pace, valleys: s.valleys, moments: s.moments, fly: s.valleys.includes('bumthang'), trek: !!s.trek }])),
+};
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+---
+<Base
+  title="Design Your Own Bhutan Trip: Trip Planner | 555 Holidays"
+  description="Plan your own private Bhutan journey: choose your dates, pace, valleys and experiences, and see a realistic plan with days and driving time as you go. Free, no-obligation."
+  image="/images/dest-phobjikha.jpg"
+  jsonld={[crumbsLd([['Home', '/'], ['Tours', U.tours], ['Design your own', U.plan]])]}
+>
+<PageHero img="/images/dest-phobjikha.jpg" alt="The wide glacial Phobjikha valley" page="tours" crumbs={[['Tours', U.tours], ['Design your own']]}
+  title="Design your own journey"
+  sub="Choose what matters to you, and we'll show you a realistic, unhurried plan as you go. Then our team in Thimphu turns it into a full itinerary and an honest price." />
+
+<main id="main">
+<section style="padding-top:clamp(40px,4vw,70px)">
+  <div class="wrap">
+    <p class="prefill-note rv" id="prefill" hidden></p>
+    <div class="planner">
+      <form class="plan-form" id="planner" novalidate>
+
+        <fieldset class="step rv">
+          <legend><b>1</b>When and how long?</legend>
+          <div class="row3">
+            <label class="fld"><span>Travel month</span><select name="month"><option value="">Not sure yet</option>{MONTHS.map(m => <option>{m}</option>)}</select></label>
+            <label class="fld"><span>Number of days</span><select name="days"><option value="">Not sure yet</option>{DAYS.map(d => <option value={d}>{d} days</option>)}</select></label>
+            <label class="fld"><span>Travellers</span><select name="travellers">{PEOPLE.map(n => <option selected={n === '2'}>{n}</option>)}</select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="step rv">
+          <legend><b>2</b>What pace suits you?</legend>
+          <div class="cards3">
+            {PACES.map(([p, d]) => (
+              <label class="choice"><input type="radio" name="pace" value={p} checked={p === 'Balanced'}>
+                <span><span class="pace" data-p={p}><i></i><i></i><i></i></span><b>{p}</b><small>{d}</small></span></label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="step rv">
+          <legend><b>3</b>Which valleys would you like to see?</legend>
+          <p class="hint">Every journey starts and ends in Paro, with time for the Tiger's Nest hike.</p>
+          <div class="valleys">
+            <div class="valley fixed"><img src="/images/dest-paro.jpg" alt="" loading="lazy"><span><b>Paro</b><small>Arrival, Tiger's Nest · always included</small></span><i class="tick" aria-hidden="true">✓</i></div>
+            {P.valleys.map(v => (
+              <label class="valley"><input type="checkbox" name="valleys" value={v.key}>
+                <img src={img(v.img)} alt="" loading="lazy"><span><b>{v.name}</b><small>{v.note}</small></span><i class="tick" aria-hidden="true">✓</i></label>
+            ))}
+          </div>
+          <label class="flyback"><input type="checkbox" name="trek" value="yes"> Add a short trek: the Dagala trail, three days over Japhu La (4,185 m), camping with a full crew</label>
+          <label class="flyback" id="flyback" hidden><input type="checkbox" name="fly" value="yes" checked> Fly back from Bumthang to Paro instead of two days' driving <span set:html={ph('[CONFIRM FLIGHT SCHEDULE]')} /></label>
+        </fieldset>
+
+        <fieldset class="step rv">
+          <legend><b>4</b>Which moments would you love?</legend>
+          <div class="interests"><div class="opts">
+            {S.experiences.map(e => <label><input type="checkbox" name="moments" value={e.title}><span>{e.title}</span></label>)}
+          </div></div>
+        </fieldset>
+
+        <fieldset class="step rv">
+          <legend><b>5</b>Where would you like to stay?</legend>
+          <div class="cards4">
+            {STAYS.map(([s, d], i) => (
+              <label class="choice"><input type="radio" name="stay" value={s} checked={i === 3}><span><b>{s}</b><small>{d}</small></span></label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="step rv">
+          <legend><b>6</b>Where should we send your plan?</legend>
+          <div class="row2">
+            <label class="fld"><span>Your name</span><input name="name" autocomplete="name" required></label>
+            <label class="fld"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <label class="fld" style="margin-top:12px"><span>Anything else? <span class="muted" style="font-weight:400">(optional)</span></span><textarea name="message" placeholder="Special occasions, dietary needs, mobility, a festival you'd love to see…"></textarea></label>
+          <div class="form-actions" style="margin-top:16px">
+            <button class="btn btn-wa" type="submit" value="whatsapp"><Fragment set:html={I.wa} />Send on WhatsApp</button>
+            <button class="btn btn-dark" type="submit" value="email"><Fragment set:html={I.mail} />Send by email</button>
+          </div>
+          <div class="form-msg" role="status"></div>
+          <p class="form-fine" set:html={ph('Free and no-obligation. We reply personally with a day-by-day plan and an itemised price, usually within [XX] hours.')} />
+        </fieldset>
+      </form>
+
+      <aside class="plan-sum" aria-live="polite">
+        <div class="sum-card">
+          <span class="label">Your journey so far</span>
+          <h3 id="sum-title">A slow week in the west</h3>
+          <dl class="sum-facts">
+            <div><dt>Suggested length</dt><dd id="sum-days">–</dd></div>
+            <div><dt>Driving in total</dt><dd id="sum-drive">–</dd></div>
+            <div><dt>Longest drive</dt><dd id="sum-long">–</dd></div>
+            <div><dt>Pace</dt><dd id="sum-pace">–</dd></div>
+          </dl>
+          <div class="sum-route" id="sum-route"></div>
+          <div class="sum-moments" id="sum-moments"></div>
+          <ul class="nudges" id="nudges"></ul>
+          <p class="sum-fine">Estimates use typical road times. We'll fine-tune everything with you.</p>
+        </div>
+      </aside>
+    </div>
+    <a class="sum-bar" id="sum-bar" href="#sum-title"><span id="bar-days">–</span><span id="bar-drive">–</span><b>View plan</b></a>
+  </div>
+</section>
+
+<section style="padding-top:clamp(60px,6vw,100px)">
+  <div class="wrap">
+    <div class="lead with-link rv"><span class="label">Prefer a ready-made route?</span><h2 class="h2">Start from a Signature Journey</h2><a class="see" href={U.tours}>All tours →</a></div>
+    <div class="sigs" set:html={S.signatures.map((t, i) => R.sig(t, i)).join('')} />
+  </div>
+</section>
+</main>
+<script type="application/json" id="planner-data" set:html={json} />
+<script is:inline src="/assets/js/planner.js" defer></script>
+</Base>

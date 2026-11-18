@@ -77,6 +77,87 @@ export const SITE = {
       text: "From an overnight ridge camp above Tiger's Nest to high passes beneath Jomolhari, with yaks and silence as company." }
   ],
 
+  /* ---------- Signature Journeys ----------
+     Our three flagship routes, designed "slow": short drives, 2–3 nights
+     per place. Drive times follow the Department of Tourism guide and our
+     road table. "valleys" and "moments" pre-fill the trip planner.          */
+  signatures: [
+    { slug: "the-slow-west", name: "The Slow West", cat: "signature", days: 7, nights: 6, img: "rev-1",
+      for: "First-time visitors", pace: "Gentle", maxDrive: "3.5 hrs", perPlace: "2 nights in each valley",
+      region: "Paro · Thimphu · Punakha",
+      tagline: "Bhutan's western valleys, without the rush.",
+      summary: "The classic western valleys, done the slow way: two nights in each place, never more than three and a half hours on the road, and time each day for the small moments: a farmhouse lunch, the weekend market, a hot-stone bath before the Tiger's Nest hike.",
+      highlights: ["Tiger's Nest at sunrise, before the crowds", "Punakha Dzong and a farmhouse lunch", "Thimphu's weekend market and craft workshops", "A hot-stone bath in Paro"],
+      valleys: ["thimphu", "punakha"],
+      moments: ["Morning at the farmers market", "Traditional craft workshop", "Farmhouse home-kitchen cooking", "Hot-stone bath (dotsho)", "Sunrise hike to Tiger's Nest"],
+      itinerary: [
+        { t: "Arrive in Paro, on to Thimphu", d: "Your guide meets you at the airport. A gentle one-hour drive to Thimphu, and the rest of the day is yours.", o: "Thimphu", drive: "1 hr" },
+        { t: "Thimphu, slowly", d: "The Centenary Farmers Market (Thu–Sun), Buddha Dordenma and a visit to a craft workshop. In the evening, Thimphu after dark.", o: "Thimphu" },
+        { t: "Over Dochula to Punakha", d: "Cross Dochula Pass and its 108 chortens, then descend into the warm Punakha valley. Afternoon walk to Chimi Lhakhang.", o: "Punakha", drive: "3 hrs" },
+        { t: "A day in Punakha", d: "Punakha Dzong in the morning light, then lunch at a farmhouse kitchen. Optional rafting on the Mo Chhu.", o: "Punakha" },
+        { t: "Back west to Paro", d: "An unhurried drive to Paro, then a hot-stone bath to prepare for tomorrow's hike.", o: "Paro", drive: "3.5 hrs" },
+        { t: "Tiger's Nest at sunrise", d: "Set off early and reach Taktsang before the day-trippers. Light a butter lamp on the way down.", o: "Paro" },
+        { t: "Departure", d: "Transfer to Paro International Airport.", o: "" }
+      ] },
+    { slug: "heartland-and-highlands", name: "Heartland & Highlands", cat: "signature", days: 12, nights: 11, img: "dest-phobjikha",
+      for: "Travellers who want depth", pace: "Balanced", maxDrive: "One long day; others 3 hrs or less", perPlace: "2–3 nights in each valley",
+      region: "Paro · Thimphu · Punakha · Phobjikha · Bumthang",
+      tagline: "From the western valleys to Bhutan's spiritual heartland.",
+      summary: "Go beyond the west into the glacial Phobjikha valley and the four sacred valleys of Bumthang. We break the long road east with stays of two or three nights, and fly back from Bumthang instead of retracing two days of driving.",
+      highlights: ["Phobjikha valley and the black-necked cranes (winter)", "Bumthang's oldest temples and the Burning Lake", "Trongsa Dzong on the road east", "A short flight back from Bumthang [CONFIRM FLIGHT SCHEDULE]"],
+      valleys: ["thimphu", "punakha", "phobjikha", "bumthang"],
+      moments: ["Morning at the farmers market", "Archery with locals", "Farmhouse home-kitchen cooking", "Butter-lamp offering with a monk", "Hot-stone bath (dotsho)", "Stargazing in the high valleys", "Sunrise hike to Tiger's Nest"],
+      itinerary: [
+        { t: "Arrive in Paro, on to Thimphu", d: "A gentle one-hour drive from the airport, then the afternoon is yours.", o: "Thimphu", drive: "1 hr" },
+        { t: "Thimphu", d: "The weekend market, Buddha Dordenma, and archery with locals in the afternoon.", o: "Thimphu" },
+        { t: "Over Dochula to Punakha", d: "108 chortens at Dochula Pass, then the warm Punakha valley.", o: "Punakha", drive: "3 hrs" },
+        { t: "Punakha", d: "Punakha Dzong and a farmhouse lunch, with time to rest.", o: "Punakha" },
+        { t: "Up to Phobjikha", d: "Climb to the wide glacial valley of Phobjikha and Gangtey Gompa.", o: "Phobjikha", drive: "3 hrs" },
+        { t: "Phobjikha", d: "The Phobjikha Nature Trail, and in winter the black-necked cranes. Stars over the valley at night.", o: "Phobjikha" },
+        { t: "The road east to Bumthang", d: "The one long day, broken with lunch and a visit to Trongsa Dzong.", o: "Bumthang", drive: "about 6 hrs, with stops" },
+        { t: "Bumthang's sacred valleys", d: "Jambay Lhakhang, Kurjey Lhakhang and Tamshing, then a butter-lamp offering.", o: "Bumthang" },
+        { t: "A slow day in Bumthang", d: "The Burning Lake, Ura village, and a hot-stone bath.", o: "Bumthang" },
+        { t: "Fly back to Paro", d: "A short domestic flight saves two days on the road. [CONFIRM FLIGHT SCHEDULE] Afternoon at leisure in Paro.", o: "Paro" },
+        { t: "Tiger's Nest at sunrise", d: "The cliffside monastery before the crowds.", o: "Paro" },
+        { t: "Departure", d: "Transfer to Paro International Airport.", o: "" }
+      ] },
+    { slug: "walk-and-rest", name: "Walk & Rest", cat: "signature", days: 9, nights: 8, img: "why", grade: "Moderate",
+      for: "Active travellers", pace: "Active", maxDrive: "3.5 hrs", perPlace: "2 nights either side of the trek",
+      region: "Paro · Thimphu · Dagala · Punakha",
+      tagline: "Three days on the high trails, with real rest either side.",
+      summary: "Acclimatise in Paro, walk three days on the Dagala trail over Japhu La (4,185 m) with views of the Himalaya, then rest properly in the warm Punakha valley with a hot-stone bath and a farmhouse lunch. Camping gear, cooks and pack animals are all arranged.",
+      highlights: ["The Dagala trek over Japhu La (4,185 m)", "Tiger's Nest hike to acclimatise", "Two rest days in the Punakha valley", "Hot-stone bath after the trail"],
+      valleys: ["thimphu", "punakha"], trek: true,
+      moments: ["Sunrise hike to Tiger's Nest", "Hot-stone bath (dotsho)", "Farmhouse home-kitchen cooking", "Rafting below Punakha Dzong"],
+      itinerary: [
+        { t: "Arrive in Paro", d: "Settle in, with a short walk in the valley to start adjusting to the altitude.", o: "Paro" },
+        { t: "Tiger's Nest", d: "A good first hike to acclimatise, and the most famous view in Bhutan.", o: "Paro" },
+        { t: "To Thimphu", d: "A short drive, a gear check with your trek crew and an easy afternoon.", o: "Thimphu", drive: "1 hr" },
+        { t: "Trek: Genekha to Tueshi", d: "9 km, about 6 hours. An easy valley walk past Tshotshekha village.", o: "Camp, 3,250 m" },
+        { t: "Trek: Tueshi to Shungkula", d: "10 km, about 5 hours, over Japhu La (4,185 m) with views of the northern range.", o: "Camp, 3,500 m" },
+        { t: "Trek out, then down to Punakha", d: "6 km, about 3 hours, to Chamgang, then drive down to the warm Punakha valley and a hot-stone bath.", o: "Punakha", drive: "about 3 hrs" },
+        { t: "Rest in Punakha", d: "Sleep in. Farmhouse lunch, optional rafting, or nothing at all.", o: "Punakha" },
+        { t: "Back to Paro", d: "An unhurried drive west, with a last evening in Paro town.", o: "Paro", drive: "3.5 hrs" },
+        { t: "Departure", d: "Transfer to Paro International Airport.", o: "" }
+      ] }
+  ],
+
+  /* ---------- Trip planner: valleys ----------
+     pos = approximate driving hours from Paro along the main road (from the
+     road table); nights = suggested nights at a relaxed pace.
+     detour = extra hours for a side trip off the main road (Haa: there and back from Paro).               */
+  planner: {
+    valleys: [
+      { key: "thimphu", name: "Thimphu", note: "The capital: markets, crafts, nightlife", img: "dest-thimphu", pos: 1, nights: 2 },
+      { key: "haa", name: "Haa", note: "Quiet valley over Chele La pass", img: "why", pos: 0.5, nights: 1, detour: 4 },
+      { key: "punakha", name: "Punakha", note: "Warm valley, the great dzong, rafting", img: "dest-punakha", pos: 4, nights: 2 },
+      { key: "phobjikha", name: "Phobjikha", note: "Glacial valley, cranes in winter", img: "dest-phobjikha", pos: 6.5, nights: 2 },
+      { key: "bumthang", name: "Bumthang", note: "Spiritual heartland, oldest temples", img: "dest-bumthang", pos: 12, nights: 3 }
+    ],
+    paroNights: 2,
+    trekNights: 3
+  },
+
   /* ---------- Tours (data/tours.ts) ---------- */
   tours: [
     { slug: "glint-of-west-bhutan", name: "Glint of West Bhutan", cat: "cultural", days: 5, nights: 4, region: "Paro · Thimphu · Punakha", img: "about-1",

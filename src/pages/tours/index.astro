@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import EnquiryForm from '../../components/EnquiryForm.astro';
-import { S, R, I, U, abs, crumbsLd, plain } from '../../lib/site.js';
+import { S, R, I, U, abs, crumbsLd, plain, ALL_TOURS } from '../../lib/site.js';
+import DiyBand from '../../components/DiyBand.astro';
 
 const INTRO = {
   cultural: 'Dzongs, monasteries and village life, at a pace that leaves time for conversation.',
@@ -12,7 +13,7 @@ const INTRO = {
 const groups = S.categories.map(c => ({ ...c, tours: S.tours.filter(t => t.cat === c.key) }));
 const listLd = {
   '@context': 'https://schema.org', '@type': 'ItemList', name: 'Bhutan tours by 555 Holidays',
-  itemListElement: S.tours.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(U.tour(t.slug)), name: t.name })),
+  itemListElement: ALL_TOURS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(U.tour(t.slug)), name: t.name })),
 };
 ---
 <Base
@@ -23,11 +24,26 @@ const listLd = {
 >
 <PageHero img="/images/pkg-trek.jpg" alt="Snow-capped Jomolhari above brown Himalayan ridges" page="tours" crumbs={[['Tours']]}
   title="Bhutan tours, at your own pace"
-  sub="Every trip is private and planned around you. Use these as starting points, then let's shape the route, pace and experiences together." />
+  sub="Start with one of our three Signature Journeys, or design your own. Every trip is private, unhurried and planned around you." />
 
 <main id="main">
-<section style="padding-top:clamp(50px,5vw,80px)">
+<section id="signature" style="padding-top:clamp(50px,5vw,80px)">
   <div class="wrap">
+    <div class="lead rv"><span class="label">Signature Journeys</span><div>
+      <h2 class="h2">Three ways to travel slowly</h2>
+      <p class="intro-p" style="margin-top:12px">Our favourite routes, designed around short drives and two or three nights in each place, so you unpack once and actually rest.</p>
+    </div></div>
+    <div class="sigs" set:html={S.signatures.map((t, i) => R.sig(t, i)).join('')} />
+    <DiyBand />
+  </div>
+</section>
+
+<section id="ideas" style="padding-top:clamp(70px,7vw,110px)">
+  <div class="wrap">
+    <div class="lead rv"><span class="label">More journey ideas</span><div>
+      <h2 class="h2">Cultural tours, treks and festivals</h2>
+      <p class="intro-p" style="margin-top:12px">More routes to start from. Each one can be slowed down and shaped around you.</p>
+    </div></div>
     <div class="filters rv" data-filters="#groups" data-hash role="group" aria-label="Filter tours">
       <button aria-pressed="true" data-f="all">All journeys</button>
       {groups.map(g => <button aria-pressed="false" data-f={g.key}>{g.name}</button>)}
@@ -35,7 +51,7 @@ const listLd = {
     <div id="groups">
       {groups.map(g => (
         <div class="tgroup" id={g.key} data-cat={g.key}>
-          <div class="tgroup-head rv"><div><h2 class="h2">{g.name} tours in Bhutan</h2><p>{INTRO[g.key]}</p></div><span class="label">{g.tours.length} journeys</span></div>
+          <div class="tgroup-head rv"><div><h2 class="h3">{g.name} tours in Bhutan</h2><p>{INTRO[g.key]}</p></div><span class="label">{g.tours.length} journeys</span></div>
           <div class="tcards" set:html={g.tours.map(R.tour).join('')} />
           {g.key === 'festival' && <p style="margin-top:22px"><a class="see" href={U.festivals}>See all festival dates for 2027 →</a></p>}
         </div>

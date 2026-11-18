@@ -36,8 +36,11 @@ export const U = {
   about: '/about/',
   guide: slug => `/guides/${slug}/`,
   contact: '/contact/',
+  plan: '/plan-your-trip/',
 };
-export const CAT_LABEL = { cultural: 'Cultural', festival: 'Festival', trek: 'Trek' };
+export const CAT_LABEL = { cultural: 'Cultural', festival: 'Festival', trek: 'Trek', signature: 'Signature' };
+/** all journeys that get their own page under /tours/ */
+export const ALL_TOURS = [...SITE.signatures, ...SITE.tours];
 
 /* ---------- icons ---------- */
 export const I = {
@@ -109,6 +112,25 @@ export const R = {
       <a class="pcard" href="${U.post(p.slug)}" aria-label="${esc(p.title)}"><img src="${img(p.img)}" alt="" loading="lazy"></a>
       <div class="post-meta"><span class="chip blue">${esc(p.cat)}</span>${p.mins} min read</div>
       <h3><a href="${U.post(p.slug)}">${esc(p.title)}</a></h3><p>${esc(p.excerpt)}</p></article>`,
+
+  sig: (t, i = 0) => `<article class="sig rv">
+      <a class="sig-photo pcard" href="${U.tour(t.slug)}" aria-label="${esc(t.name)}">
+        <img src="${img(t.img)}" alt="" loading="lazy">
+        <span class="sig-no">0${i + 1}</span>
+        <span class="chip">Signature · ${t.days} days</span>
+      </a>
+      <div class="sig-body">
+        <span class="sig-for">${esc(t.for)}</span>
+        <h3><a href="${U.tour(t.slug)}">${esc(t.name)}</a></h3>
+        <p>${esc(t.tagline)}</p>
+        <dl class="slow">
+          <div><dt>Pace</dt><dd><span class="pace" data-p="${esc(t.pace)}"><i></i><i></i><i></i></span>${esc(t.pace)}</dd></div>
+          <div><dt>Longest drive</dt><dd>${esc(t.maxDrive)}</dd></div>
+          <div><dt>Stays</dt><dd>${esc(t.perPlace)}</dd></div>
+        </dl>
+        <div class="sig-route">${esc(t.region)}</div>
+        <div class="sig-cta"><a class="see" href="${U.tour(t.slug)}">See the journey →</a><a class="outline" href="${U.plan}?from=${t.slug}">Make it yours</a></div>
+      </div></article>`,
 
   office: o => `<article class="office rv">
       <span class="role">${esc(o.role)}</span>
