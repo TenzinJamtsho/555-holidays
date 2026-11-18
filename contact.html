@@ -35,6 +35,13 @@
     </div>
   </div>
 </section>
+
+<section id="offices" style="padding-top:clamp(60px,6vw,100px)" aria-labelledby="off-h">
+  <div class="wrap">
+    <div class="lead rv"><span class="label">Where to find us</span><h2 class="h2" id="off-h">Our offices</h2></div>
+    <div class="offices" id="offices-grid"></div>
+  </div>
+</section>
 </main>
 <footer data-footer></footer>
 </div>
@@ -42,13 +49,14 @@
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
-  const { C, I, waLink, reveal } = window.UI;
+  const { C, I, R, waLink, reveal } = window.UI;
+  document.getElementById('offices-grid').innerHTML = C.offices.map(R.office).join('');
   const map = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(C.address);
   document.getElementById('ccards').innerHTML = [
     [waLink("Hello! I'd like a free trip plan for Bhutan."), I.wa, 'WhatsApp', C.phone + ' · usually the fastest way to reach us', true],
     ['mailto:' + C.email, I.mail, 'Email', C.email],
     ['tel:+97517300392', I.phone, 'Phone', C.phone],
-    [map, I.pin, 'Visit us', C.address, true],
+    [map, I.pin, 'Visit us in Thimphu', C.address, true],
     [null, I.clock, 'Office hours', C.hours],
     [C.instagram, I.insta, 'Instagram', '@bhutantourinfo', true]
   ].map(([href, ic, t, s, ext]) => href

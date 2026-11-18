@@ -76,11 +76,12 @@
         <div class="fgrid">
           <div class="fbrand">
             <a href="index.html" class="brand">${I.logo}${esc(C.name)}</a>
-            <p>A small, family-run Bhutanese travel agency in Thimphu. We've been planning private, unhurried journeys through the Land of the Thunder Dragon for over 20 years.</p>
+            <p>A small, Bhutanese-owned travel agency in Thimphu, planning slow, unhurried journeys through the Land of the Thunder Dragon.</p>
             <a class="c" href="${waLink()}" target="_blank" rel="noopener">${I.wa}WhatsApp ${esc(C.phone)}</a>
             <a class="c" href="mailto:${C.email}">${I.mail}${esc(C.email)}</a>
             <span class="c">${I.pin}${esc(C.address)}</span>
             <span class="c">${I.clock}Mon – Sat, 9 AM – 6 PM</span>
+            <span class="c">${I.globe}Offices in Thimphu · Washington, DC · Panvel, India</span>
             <div class="soc">
               <a href="${C.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${I.insta}</a>
               <a href="${waLink()}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.wa}</a>
@@ -166,6 +167,15 @@
         <a class="pcard" href="post.html?p=${p.slug}" aria-label="${esc(p.title)}"><img src="${img(p.img)}" alt="" loading="lazy"></a>
         <div class="post-meta"><span class="chip blue">${esc(p.cat)}</span>${p.mins} min read</div>
         <h3><a href="post.html?p=${p.slug}">${esc(p.title)}</a></h3><p>${esc(p.excerpt)}</p></article>`,
+
+    office: o => `<article class="office rv">
+        <span class="role">${esc(o.role)}</span>
+        <h3>${esc(o.name)}</h3>
+        <address>${o.lines.map(esc).join('<br>')}</address>
+        ${o.phone ? `<a class="o-link" href="tel:${o.phone.replace(/[^+\d]/g, '')}">${I.phone}${esc(o.phone)}</a>` : ''}
+        ${o.note ? `<small>${esc(o.note)}</small>` : ''}
+        <a class="o-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(o.map)}" target="_blank" rel="noopener">${I.pin}View on map</a>
+      </article>`,
 
     qa: (f, i, open, pre) => `<div class="qa${open ? ' open' : ''}">
         <button aria-expanded="${open}" aria-controls="${pre}${i}" id="${pre}q${i}"><span>${esc(f.q)}</span><i class="pm" aria-hidden="true"></i></button>

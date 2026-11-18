@@ -20,7 +20,15 @@ window.SITE = {
     tripadvisorUrl: "[TRIPADVISOR URL]",
     rating: "[4.9]",
     reviewCount: "[XXX]",
-    licence: "[TOURISM LICENCE NO.]"
+    licence: "6013293",
+    offices: [
+      { name: "Bhutan", role: "Head office", lines: ["Babena – Samteling", "Thimphu BT 11001, Bhutan"], phone: "+975 17300392",
+        map: "Babena, Samteling, Thimphu, Bhutan" },
+      { name: "United States", role: "US office", lines: ["1664 Columbia Rd NW", "Washington, DC 20009, USA"], phone: "+1 (857) 919-4609",
+        map: "1664 Columbia Rd NW, Washington, DC 20009" },
+      { name: "India", role: "India office", lines: ["Murkunde YTP (OPC) Private Limited", "Flat 102, Soham CHS, Brahmin Gaon, Palaspe", "Panvel, Raigad 410206, India"],
+        note: "GSTIN 27AARCM9165G1ZT", map: "Palaspe, Panvel, Raigad 410206" }
+    ]
   },
 
   /* ---------- "Moments to Live" experiences (homepage) ---------- */
@@ -56,7 +64,7 @@ window.SITE = {
     { num: "[XX]", label: "local families we work with" },
     { num: "[XX]", label: "trees planted with our guests" },
     { num: "[XX]%", label: "of our team from Bhutanese villages" },
-    { num: "20+", label: "years guiding in Bhutan" }
+    { num: "3", label: "offices: Thimphu, Washington DC and India" }
   ],
 
   /* ---------- Tour categories ---------- */
@@ -100,13 +108,13 @@ window.SITE = {
       highlights: ["[HIGHLIGHT]", "[HIGHLIGHT]", "[HIGHLIGHT]"] },
 
     { slug: "thimphu-festival-tour", name: "Thimphu Festival Tour", cat: "festival", days: 8, region: "Thimphu", img: "pkg-festival",
-      summary: "Bhutan's largest and best-loved tshechu, usually in late September or early October. Locals wear their finest silk and share elaborate picnics, and you can join the Drupchen beforehand. Book about six months ahead.",
+      summary: "Bhutan's largest and best-loved tshechu, usually in September or October (10–12 October in 2027). Locals wear their finest silk and share elaborate picnics, and you can join the Drupchen beforehand. Book about six months ahead.",
       highlights: ["Thimphu Tshechu masked dances", "Optional Drupchen beforehand", "Thimphu, Punakha & Paro sights"] },
     { slug: "paro-festival-tour", name: "Paro Festival Tour", cat: "festival", days: 10, region: "Paro", img: "rev-2",
-      summary: "One of the largest festivals, held in spring when rhododendrons, magnolias and primulas bloom and the weather is mild and clear.",
+      summary: "One of the largest festivals, held in March or April (18–22 March in 2027) when rhododendrons, magnolias and primulas bloom and the weather is mild and clear.",
       highlights: ["Paro Tshechu", "Spring flowers", "Tiger's Nest"] },
     { slug: "punakha-festival-tour", name: "Punakha Festival Tour", cat: "festival", days: 7, region: "Punakha", img: "dest-punakha",
-      summary: "The Drubchen and Tshechu at Punakha Dzong, usually around February or March, with sights in Paro, Thimphu and Punakha.",
+      summary: "The Drubchen and Tshechu at Punakha Dzong, usually in February or March (13–18 February in 2027), with sights in Paro, Thimphu and Punakha.",
       highlights: ["Punakha Drubchen & Tshechu", "Tashichho Dzong", "Rinpung Dzong"] },
     { slug: "nimalung-festival-tour", name: "Nimalung Festival Tour", cat: "festival", days: 11, region: "Bumthang", img: "dest-bumthang",
       summary: "A rare three-day village tshechu in Bumthang's Chhume valley, with Buddhist tradition, distinctive architecture and rural life barely touched by the outside world.",
@@ -154,15 +162,15 @@ window.SITE = {
      Festival dates follow the lunar calendar. Replace [DATES] with the
      official calendar for the year. "usual" is the usual season only.   */
   festivals: [
-    { name: "Trongsa Tshechu", place: "Trongsa", usual: "Late December", dates: "[DEC 2026 DATES]", days: "Tailor-made", tour: null, img: "gal-4", group: "Private" },
-    { name: "Punakha Drubchen & Tshechu", place: "Punakha", usual: "February – March", dates: "[2027 DATES]", days: "7 days", tour: "punakha-festival-tour", img: "dest-punakha", group: "Private" },
-    { name: "Paro Tshechu", place: "Paro", usual: "Spring (around April)", dates: "[2027 DATES]", days: "10 days", tour: "paro-festival-tour", img: "rev-2", group: "Private" },
-    { name: "Rhododendron Festival", place: "Lamperi Botanical Park, near Dochula", usual: "April", dates: "[2027 DATES]", days: "Tailor-made", tour: null, img: "fest-rhodo", group: "Private" },
-    { name: "Ura Yakchoe", place: "Bumthang", usual: "May", dates: "[2027 DATES]", days: "Tailor-made", tour: null, img: "dest-bumthang", group: "Private" },
-    { name: "Nimalung Tshechu", place: "Bumthang (Chhume)", usual: "Summer (around July)", dates: "[2027 DATES]", days: "11 days", tour: "nimalung-festival-tour", img: "pkg-cultural", group: "Private" },
-    { name: "Thimphu Tshechu", place: "Thimphu", usual: "Late Sep – early Oct", dates: "[2027 DATES]", days: "8 days", tour: "thimphu-festival-tour", img: "pkg-festival", group: "[SMALL GROUP · MAX X] or Private" },
-    { name: "Jomolhari Mountain Festival", place: "Dangochong, Jigme Dorji National Park", usual: "Mid-October", dates: "[2027 DATES]", days: "Highland journey · tailor-made", tour: null, img: "gal-1", group: "Private" },
-    { name: "Royal Highland Festival", place: "Laya, Gasa", usual: "October", dates: "[2027 DATES]", days: "Highland journey · tailor-made", tour: null, img: "fest-laya", group: "Private" }
+    { name: "Trongsa Tshechu", place: "Trongsa Dzong", usual: "December – January", dates: "[DEC 2026 / JAN 2027 DATES]", days: "Tailor-made", tour: null, img: "gal-4", group: "Private" },
+    { name: "Punakha Drubchen & Tshechu", place: "Punakha Dzong", usual: "February – March", dates: "13 – 18 Feb 2027", days: "7 days", tour: "punakha-festival-tour", img: "dest-punakha", group: "Private" },
+    { name: "Paro Tshechu", place: "Rinpung Dzong, Paro", usual: "March – April", dates: "18 – 22 Mar 2027", days: "10 days", tour: "paro-festival-tour", img: "rev-2", group: "Private" },
+    { name: "Rhododendron Festival", place: "Lamperi Botanical Park, near Dochula", usual: "April", dates: "22 – 23 Apr 2027", days: "Tailor-made", tour: null, img: "fest-rhodo", group: "Private" },
+    { name: "Ura Yakchoe", place: "Ura, Bumthang", usual: "April – May", dates: "18 – 22 Apr 2027", days: "Tailor-made", tour: null, img: "dest-bumthang", group: "Private" },
+    { name: "Nimalung Tshechu", place: "Chhume, Bumthang", usual: "June – July", dates: "12 – 14 Jun 2027", days: "11 days", tour: "nimalung-festival-tour", img: "pkg-cultural", group: "Private" },
+    { name: "Thimphu Tshechu", place: "Tashichho Dzong, Thimphu", usual: "September – October", dates: "10 – 12 Oct 2027", days: "8 days", tour: "thimphu-festival-tour", img: "pkg-festival", group: "[SMALL GROUP · MAX X] or Private" },
+    { name: "Jomolhari Mountain Festival", place: "Dangochong, Jigme Dorji National Park", usual: "Mid-October", dates: "14 – 15 Oct 2027", days: "Highland journey · tailor-made", tour: null, img: "gal-1", group: "Private" },
+    { name: "Royal Highland Festival", place: "Laya, Gasa", usual: "Late October", dates: "23 – 24 Oct [CONFIRM 2027]", days: "Highland journey · tailor-made", tour: null, img: "fest-laya", group: "Private" }
   ],
 
   /* ---------- Guides (data/guides.ts) ---------- */
@@ -195,7 +203,7 @@ window.SITE = {
 
   /* ---------- Trust strip ---------- */
   trust: [
-    { name: "Licensed tour operator", sub: "Dept. of Tourism · [LICENCE NO.]", url: "https://www.bhutan.travel" },
+    { name: "Licensed tour operator", sub: "Licence No. 6013293 · valid to Jan 2027", url: "https://www.bhutan.travel" },
     { name: "ABTO member", sub: "[VERIFY MEMBERSHIP]", url: "https://www.abto.org.bt" },
     { name: "Guide Association of Bhutan", sub: "[VERIFY]", url: "https://www.gab.org.bt" },
     { name: "TripAdvisor", sub: "[RATING / AWARD]", url: "[TRIPADVISOR URL]" }
@@ -208,21 +216,21 @@ window.SITE = {
     { group: "Planning & cost", home: true, q: "What if I need to cancel?",
       a: "Eligible trips can be cancelled free of charge up to 56 days before departure, and deposits can be moved to a new date. [LINK TO FULL TERMS & CONDITIONS]" },
     { group: "Planning & cost", q: "How do I pay?",
-      a: "The full trip cost is paid in advance by international wire transfer, because your visa can only be issued once payment is received. We'll explain the current process and timeline when you book." },
+      a: "The visa fee and Sustainable Development Fee are paid when the visa application is submitted, and they are refunded (less bank charges) if your trip is cancelled or shortened. For the rest of your trip we'll explain our payment terms with your quote. [CONFIRM YOUR DEPOSIT & PAYMENT TERMS] If you pay by international card, tell your bank first: some banks block payments to Bhutan." },
     { group: "Planning & cost", q: "Can I change the itinerary?",
       a: "Yes. Every trip is private and planned around you, and itineraries stay flexible on the road, especially for small groups." },
     { group: "Planning & cost", q: "Can I travel in Bhutan independently?",
-      a: "International visitors must book through a licensed Bhutanese tour operator (or an international partner), unless they are invited guests." },
+      a: "Since Bhutan reopened in September 2022 you no longer have to book through a tour operator. However, a licensed guide must accompany you throughout your stay and is required to enter dzongs and monuments, and all treks must be done with an accredited operator or guide. Most guests find it simpler to let us arrange the guide, transport, hotels, visa and SDF together." },
 
     { group: "Visa & entry", home: true, q: "Do I need a visa?",
-      a: "Yes, unless you hold an Indian, Bangladeshi or Maldivian passport; those travellers receive a permit on arrival. For everyone else we arrange the visa: send us a scan of your passport photo page (valid 6+ months), and once payment is received the visa is usually processed within about 72 working hours. It's stamped into your passport when you land. Rules changed after 2022, so we always confirm the latest requirements with you." },
+      a: "Yes, for every nationality except Indian nationals, who receive an entry permit instead (with an Indian passport or Voter ID). Bangladeshi and Maldivian nationals can apply in advance or on arrival. Visas are applied for online at immi.gov.bt, and we can do this for you: send us a scan of your passport photo page. A correctly completed application takes up to five days, the one-off processing fee is USD 40, and a visa allows a stay of up to 90 days." },
     { group: "Visa & entry", q: "What is the Sustainable Development Fee (SDF)?",
-      a: "A government fee of USD 100 per adult per night (USD 50 for children aged 6–11, free under 6). It funds conservation, free education and healthcare, and keeps tourism low-impact. It's already included in our quotes." },
+      a: "A government fee paid for every night you stay: USD 100 per adult, USD 50 for children aged 6 to under 12, and nothing for children under 6. Indian nationals pay Nu. 1,200 per night (Nu. 600 for children aged 6 to under 12). It funds conservation, infrastructure and sustainable opportunities for Bhutanese people, it's refundable (less bank charges) for unused nights, and it's already included in our quotes." },
     { group: "Visa & entry", q: "How do I get to Bhutan?",
-      a: "Fly into Paro International Airport with Drukair or Bhutan Airlines (routes include Bangkok, Delhi, Kolkata and Kathmandu), or enter by road at Phuentsholing on the Indian border. Mountain weather can delay flights, so allow at least 24 hours for onward connections." },
+      a: "Most guests fly into Paro International Airport with Drukair or Bhutan Airlines (routes include Bangkok, Delhi, Kolkata and Kathmandu). You can also enter by road at one of four land border crossings, such as Phuentsholing or Gelephu. Mountain weather can delay flights, so allow at least 24 hours for onward connections." },
 
     { group: "On the trip", home: true, q: "When is the best time to visit?",
-      a: "Spring (Feb–Apr) and autumn (Sep–Nov) bring clear skies and the big festivals. Winter (Dec–Feb) is cool and clear, and the cranes are in Phobjikha. The monsoon (Jun–Aug) is green, quiet and rainy." },
+      a: "Bhutan is a year-round destination. Autumn (late September to November) brings bright, sunny days and festival season; spring (March to mid-April) is when nature is in full bloom; winter (late November to March) is crisp and clear, with the black-necked cranes in Phobjikha; and the monsoon (late June to September) is green and quiet, though landslides can disrupt roads." },
     { group: "On the trip", home: true, q: "Is Bhutan safe for solo and women travellers?",
       a: "Bhutan is a very safe country to travel in, and you're never on your own: your licensed guide and driver are with you throughout the trip. Solo travellers and women travelling alone are very welcome, and we can arrange a female guide on request. [CONFIRM FEMALE GUIDE AVAILABILITY]" },
     { group: "On the trip", q: "What is the food like?",
@@ -230,12 +238,16 @@ window.SITE = {
     { group: "On the trip", q: "Should I tip?",
       a: "Tipping is optional and depends on the service you receive." },
     { group: "On the trip", q: "Do I need vaccinations?",
-      a: "No vaccinations are required, except yellow fever or cholera if you are arriving from an affected area (at least 10 days before arrival). We recommend travel insurance covering medical emergencies and lost baggage." },
+      a: "No vaccinations are generally required, except yellow fever or cholera if you are arriving from an affected area. Travel insurance has not been mandatory since April 2024, but we strongly recommend a policy covering medical emergencies, evacuation and lost baggage." },
 
     { group: "Money & phones", q: "What currency is used?",
-      a: "The Ngultrum (Nu.), pegged 1:1 to the Indian Rupee, which is also accepted. ATMs in the main towns take Visa and Mastercard, most hotels and craft shops accept cards, and US dollars are widely accepted. Banks give better exchange rates than hotels." },
+      a: "The Ngultrum (Nu.), pegged 1:1 to the Indian Rupee. Cash is preferred, and US dollars and Indian rupees are widely accepted. ATMs and banks take Visa and Mastercard and cards work well in towns, but they may not be reliable in rural areas. The digital wallet apps goBoB and MyPay can be linked to international cards. You can change money at Paro airport, banks and larger hotels, and bring up to USD 10,000 in cash." },
     { group: "Money & phones", q: "Can I use my phone?",
-      a: "Yes. International dialling is available and prepaid local SIM cards are easy to buy." },
+      a: "Yes. Visitor SIM cards from TashiCell and Bhutan Telecom give reliable mobile data across the country. Buy one at Paro airport or a phone shop in town, and top up as you go." },
+    { group: "On the trip", q: "Is Bhutan welcoming to everyone?",
+      a: "Yes. Bhutan decriminalised homosexuality in 2021, and organisations like Pride Bhutan and Queer Voices of Bhutan are active. If you have a disability, let us know early: the terrain is challenging, but with planning we can make the most of your time here." },
+    { group: "On the trip", q: "Can I fly a drone or take photos at temples?",
+      a: "Drones are generally not allowed without a permit arranged in advance. Photography is not permitted inside temples or of people practising their religion. Your guide will tell you where it's fine." },
 
     { group: "Sustainability", q: "How can I travel sustainably?",
       a: "Choose certified eco-friendly lodges, skip single-use plastic (bring a refillable bottle and bags), stay on marked trails, keep your distance from wildlife, and spend locally at restaurants, craft shops and with local guides." }
@@ -259,7 +271,7 @@ window.SITE = {
 <h2>What it means for travellers</h2><p>It's why tourism is managed as "High Value, Low Impact", why forests cover over 70% of the land, and why your Sustainable Development Fee (USD 100 per adult per night) funds conservation, free education and healthcare. Travelling here, you become part of that balance.</p>` },
     { slug: "flying-into-paro", title: "Flying into Paro: the most scenic landing in the Himalaya", cat: "Practical", img: "bloom-hero", mins: 3,
       excerpt: "Eight of the world's ten highest peaks, daylight-only flights, and why you should keep your window seat.",
-      body: `<p>Paro International Airport is Bhutan's only international airport. Drukair, the national carrier, and Bhutan Airlines connect it with cities including Bangkok, Delhi, Kolkata and Kathmandu.</p>
+      body: `<p>Paro International Airport is where almost every guest arrives (Gelephu, in the south, is also listed as an international airport). Drukair, the national carrier, and Bhutan Airlines connect it with cities including Bangkok, Delhi, Kolkata and Kathmandu.</p>
 <h2>Why the flight is special</h2><p>All flights use Visual Flight Rules: pilots must see the runway and the surrounding hills, so there are no night flights or flights in poor visibility. On a clear day the route passes 8 of the world's 10 highest peaks:</p>
 <ul><li>Everest 8,848 m · Kanchenjunga 8,586 m</li><li>Lhotse 8,516 m · Makalu 8,463 m</li><li>Cho Oyu 8,201 m · Dhaulagiri 8,167 m</li><li>Manaslu 8,163 m · Annapurna 8,091 m</li></ul>
 <h2>Practical tips</h2><p>Weather often delays flights, so book flexible tickets and leave at least 24 hours for onward connections. Schedule changes are published at least a week ahead in Kuensel, the national newspaper, and we'll keep an eye on them for you.</p>` },
@@ -290,7 +302,7 @@ window.SITE = {
       excerpt: "What happens, what to wear, and how to choose the right festival for your dates.",
       body: `<p>A tshechu is a religious festival honouring Guru Rinpoche, who brought Buddhism to Bhutan in the 8th century. For several days, monks and laypeople perform sacred masked dances in the dzong courtyard, and whole communities gather.</p>
 <h2>What to expect</h2><p>Families arrive in their finest gho and kira, with picnics to share. The dances carry blessings, and watching them is considered meritorious.</p>
-<h2>Popular festivals by season</h2><ul><li><strong>February – March:</strong> Punakha Drubchen & Tshechu</li><li><strong>Spring:</strong> Paro Tshechu, and the Rhododendron Festival at Lamperi near Dochula (April)</li><li><strong>May:</strong> Ura Yakchoe (Bumthang)</li><li><strong>Summer:</strong> Nimalung & Kurjey (Bumthang)</li><li><strong>Late Sep – Oct:</strong> Thimphu Tshechu</li><li><strong>October:</strong> Jomolhari Mountain Festival (Dangochong) and the Royal Highland Festival in Laya, both in the remote high north, so we plan the trek or drive in with you</li><li><strong>November:</strong> Black-Necked Crane Festival, Jambay Lhakhang Drup</li><li><strong>December:</strong> Druk Wangyel (Dochula), Trongsa Tshechu</li></ul>
+<h2>Popular festivals by season</h2><ul><li><strong>February – March:</strong> Punakha Drubchen & Tshechu</li><li><strong>Spring:</strong> Paro Tshechu, and the Rhododendron Festival at Lamperi near Dochula (April)</li><li><strong>April:</strong> Ura Yakchoe (Bumthang)</li><li><strong>June:</strong> Nimalung & Kurjey (Bumthang)</li><li><strong>Late Sep – Oct:</strong> Thimphu Tshechu</li><li><strong>October:</strong> Jomolhari Mountain Festival (Dangochong) and the Royal Highland Festival in Laya, both in the remote high north, so we plan the trek or drive in with you</li><li><strong>November:</strong> Black-Necked Crane Festival, Jambay Lhakhang Drup</li><li><strong>December:</strong> Druk Wangyel (Dochula), Trongsa Tshechu</li></ul>
 <h2>Tips</h2><p>Dress modestly, with long sleeves and long trousers or skirts. Never walk across the dance ground, and ask before photographing people. The big festivals fill up, so book about six months ahead.</p>` }
   ],
 
