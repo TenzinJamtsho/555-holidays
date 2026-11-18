@@ -284,7 +284,7 @@ export const SITE = {
 
   /* ---------- Trust strip ---------- */
   trust: [
-    { name: "Licensed tour operator", sub: "Licence No. 6013293 · valid to Jan 2027", url: "https://www.bhutan.travel" },
+    { name: "Licensed tour operator", sub: "Licence No. 6013293", url: "https://www.bhutan.travel" },
     { name: "ABTO member", sub: "[VERIFY MEMBERSHIP]", url: "https://www.abto.org.bt" },
     { name: "Guide Association of Bhutan", sub: "[VERIFY]", url: "https://www.gab.org.bt" },
     { name: "TripAdvisor", sub: "[RATING / AWARD]", url: "[TRIPADVISOR URL]" }
@@ -293,7 +293,7 @@ export const SITE = {
   /* ---------- FAQ (home shows the ones marked home:true) ---------- */
   faq: [
     { group: "Planning & cost", home: true, q: "How much does a trip cost?",
-      a: "Most trips run about [USD ___–___] per person per day. That includes the USD 100/night Sustainable Development Fee, hotels, all meals, your licensed guide, and a private vehicle with driver. Not included: international flights, the USD 40 visa fee, drinks, entry fees, tips and travel insurance. We'll send you an exact, itemised quote." },
+      a: "It depends on the length of your trip, the season, how many of you are travelling and where you'd like to stay. Every quote is all-inclusive: the Sustainable Development Fee (USD 100 per adult per night), hotels, all meals, your licensed guide, and a private vehicle with driver. Not included: international flights, the USD 40 visa fee, drinks, entry fees, tips and travel insurance. Tell us your plans and we'll send an exact, itemised quote, free and with no obligation." },
     { group: "Planning & cost", home: true, q: "What if I need to cancel?",
       a: "Eligible trips can be cancelled free of charge up to 56 days before departure, and deposits can be moved to a new date. [LINK TO FULL TERMS & CONDITIONS]" },
     { group: "Planning & cost", q: "How do I pay?",
